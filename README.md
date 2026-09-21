@@ -1,71 +1,27 @@
-# iOS Project Template
+# Meguri
 
-iOS アプリ開発のためのテンプレートプロジェクトです。XprojGen を使用してプロジェクトを生成し、コード品質管理やCI/CDが事前設定されています。
+美術館の絵画や旅先の風景を撮ると、その場で「それが何か・どんな背景があるか」を Apple 純正 AI が説明し、
+撮った記録がコレクションとして溜まっていく iOS アプリ。
 
-## 🚀 使用方法
+- 説明は Vision（文字認識・画像分類）→ Foundation Models（オンデバイス / Private Cloud Compute）で生成。外部 API なし
+- 撮影場所（CoreLocation）と日時つきで SwiftData に保存
+- iOS 26.0+、Swift 6、SwiftUI
 
-### プロジェクト生成
+## 開発
 
 ```bash
-# 通常のディレクトリ構造
-mint run akidon0000/XprojGen xprojgen MyAwesomeApp
-
-# フラットなディレクトリ構造
-mint run akidon0000/XprojGen xprojgen MyAwesomeApp --flat
+brew install mint xcodegen
+xcodegen generate
+xcodebuild test -project Meguri.xcodeproj -scheme Meguri -destination 'platform=iOS Simulator,name=iPhone 18 Pro'
 ```
 
-## ⚙️ 事前設定されている機能
+設計: [docs/superpowers/specs/](docs/superpowers/specs/)、実装計画: [docs/superpowers/plans/](docs/superpowers/plans/)
 
-### コード品質管理
+## TestFlight
 
-- **SwiftLint**: コーディング規約の自動チェック
-  - 設定ファイル: `.swiftlint.yml`
-  - 130以上のルールが事前設定済み
+[asc](https://asccli.sh/)（App Store Connect CLI）で配信する。
 
-- **Swift-format**: コードフォーマットの自動整形
-  - 設定ファイル: `.swift-format`
-  - インデント、行長、スペースなどを統一
-
-### CI/CD ワークフロー
-
-- **SwiftLint チェック**: プルリクエスト時の自動コード品質チェック
-- **Swift-format チェック**: プルリクエスト時の自動コードフォーマット適用
-- **Danger**: プルリクエストの自動レビュー
-
-### GitHub テンプレート
-
-- **プルリクエストテンプレート**: Issue番号、説明、スクリーンショット項目を含む
-- **イシューテンプレート**: バグレポート用のテンプレート
-
-## 📁 ディレクトリ構造
-
+```bash
+asc auth login --name akidon0000 --key-id KEY_ID --issuer-id ISSUER_ID --private-key ~/.appstoreconnect/private_keys/AuthKey_KEY_ID.p8
+scripts/testflight.sh APP_ID
 ```
-ios-project-template/
-├── .github/
-│   ├── workflows/           # GitHub Actions ワークフロー
-│   ├── PULL_REQUEST_TEMPLATE/
-│   └── ISSUE_TEMPLATE/
-├── .swiftlint.yml          # SwiftLint 設定
-├── .swift-format           # Swift-format 設定
-├── .gitignore              # Git 除外設定
-└── Dangerfile.swift        # Danger 設定
-```
-
-## 🔧 セットアップ要件
-
-### 必要なツール
-
-- **Mint**: Swift パッケージマネージャー
-  ```bash
-  brew install mint
-  ```
-
-### 自動化
-
-- プルリクエスト作成時に自動でSwiftLintとSwift-formatがチェックされます
-- Dangerが追加のプルリクエストレビューを実行します
-
-## 📄 ライセンス
-
-このテンプレートは自由にご利用いただけます。生成されたプロジェクトのライセンスは各プロジェクトでご設定ください。
-

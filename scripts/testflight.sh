@@ -1,0 +1,33 @@
+#!/bin/bash
+# Archive, export, and upload to TestFlight with asc (App Store Connect CLI).
+#
+# Requires:
+#   asc auth login (or ASC_KEY_ID / ASC_ISSUER_ID / ASC_PRIVATE_KEY_PATH)
+#   ASC_APP_ID   App Store Connect app ID (numeric), or pass as $1
+#
+# Usage: scripts/testflight.sh [APP_ID] [--group "Internal"]
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+APP_ID="${1:-${ASC_APP_ID:-}}"
+if [[ -z "$APP_ID" ]]; then
+  echo "usage: scripts/testflight.sh APP_ID [--group NAME]" >&2
+  exit 1
+fi
+shift || true
+
+xcodegen generate --quiet
+
+exec asc publish testflight \
+  --app "$APP_ID" \
+  --project Meguri.xcodeproj \
+  --scheme Meguri \
+  --configuration Release \
+  --export-options scripts/ExportOptions.plist \
+  --archive-path build/Meguri.xcarchive \
+  --ipa-path build/Meguri.ipa \
+  --archive-xcodebuild-flag -allowProvisioningUpdates \
+  --export-xcodebuild-flag -allowProvisioningUpdates \
+  --wait \
+  --pretty \
+  "${@:---upload-only}"
