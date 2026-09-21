@@ -1,6 +1,6 @@
 # Meguri MVP Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 写真を撮る → Vision + Foundation Models で説明カードを生成 → SwiftData のコレクションに保存・閲覧できる iOS アプリを TestFlight に上げられる状態にする。
 
@@ -11,6 +11,8 @@
 **Spec:** [../specs/2026-09-22-meguri-mvp-design.md](../specs/2026-09-22-meguri-mvp-design.md)
 
 **Execution method:** Native（ユーザー就寝中の自律実行のため。朝に全体レビューを依頼する）
+
+**進捗（2026-09-22 03:40）:** Task 1〜6 完了、code-review で 5 件検出し 4 件修正済み。Task 7 は archive まで成功、TestFlight アップロードは ASC API キー失効で未実施。
 
 ## Global Constraints
 
@@ -40,7 +42,7 @@
 **Interfaces:**
 - Produces: `struct Insight: Codable, Sendable, Equatable { title, creator, era, summary, funFacts: [String], category: Category }`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```swift
 import Testing
@@ -59,9 +61,9 @@ import Foundation
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails** — `Insight` に memberwise init がある（@Generable が生成）ので、この段階では通るはず。通ったら Step 5 へ。
-- [ ] **Step 3/4:** 不要
-- [ ] **Step 5: Commit** — `git commit -m "Add Insight model with JSON round-trip test"`
+- [x] **Step 2: Run test to verify it fails** — `Insight` に memberwise init がある（@Generable が生成）ので、この段階では通るはず。通ったら Step 5 へ。
+- [x] **Step 3/4:** 不要
+- [x] **Step 5: Commit** — `git commit -m "Add Insight model with JSON round-trip test"`
 
 ### Task 2: PromptBuilder
 
@@ -72,7 +74,7 @@ import Foundation
 **Interfaces:**
 - Produces: `enum PromptBuilder { static let instructions: String; static func prompt(labels: [String], texts: [String], placeName: String?, locale: Locale) -> String }`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 ```swift
 @Suite struct PromptBuilderTests {
@@ -96,8 +98,8 @@ import Foundation
 }
 ```
 
-- [ ] **Step 2: Run** — FAIL: `PromptBuilder` not found
-- [ ] **Step 3: Implement**
+- [x] **Step 2: Run** — FAIL: `PromptBuilder` not found
+- [x] **Step 3: Implement**
 
 ```swift
 enum PromptBuilder {
@@ -122,8 +124,8 @@ enum PromptBuilder {
 }
 ```
 
-- [ ] **Step 4: Run** — PASS
-- [ ] **Step 5: Commit** — `git commit -m "Add PromptBuilder"`
+- [x] **Step 4: Run** — PASS
+- [x] **Step 5: Commit** — `git commit -m "Add PromptBuilder"`
 
 ### Task 3: FileImageStore
 
@@ -134,7 +136,7 @@ enum PromptBuilder {
 **Interfaces:**
 - Produces: `protocol ImageStoring: Sendable { func save(_ image: UIImage) throws -> StoredImage; func load(fileName: String) -> UIImage?; func delete(fileName: String) }`, `struct StoredImage { fileName: String; thumbnailData: Data }`, `final class FileImageStore: ImageStoring { init(directory: URL) }`
 
-- [ ] **Step 1: Test**
+- [x] **Step 1: Test**
 
 ```swift
 @Suite struct FileImageStoreTests {
@@ -155,10 +157,10 @@ enum PromptBuilder {
 }
 ```
 
-- [ ] **Step 2: Run** — FAIL
-- [ ] **Step 3: Implement** — JPEG 0.85 で `<uuid>.jpg` 保存、`image.preparingThumbnail(of:)` で 256px サムネイル、`directory` は `Application Support/Images` を既定に
-- [ ] **Step 4: Run** — PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 2: Run** — FAIL
+- [x] **Step 3: Implement** — JPEG 0.85 で `<uuid>.jpg` 保存、`image.preparingThumbnail(of:)` で 256px サムネイル、`directory` は `Application Support/Images` を既定に
+- [x] **Step 4: Run** — PASS
+- [x] **Step 5: Commit**
 
 ### Task 4: Entry (SwiftData)
 
@@ -169,11 +171,11 @@ enum PromptBuilder {
 **Interfaces:**
 - Produces: `@Model final class Entry { id, createdAt, imageFileName, thumbnailData, placeName, latitude, longitude, insightData, perceivedLabels, recognizedTexts, unavailableReason: String? }`、computed `insight: Insight?`（get/set で JSON 変換）
 
-- [ ] **Step 1: Test** — in-memory `ModelContainer` に insert → fetch → `insight` が往復する
-- [ ] **Step 2: Run** — FAIL
-- [ ] **Step 3: Implement**
-- [ ] **Step 4: Run** — PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 1: Test** — in-memory `ModelContainer` に insert → fetch → `insight` が往復する
+- [x] **Step 2: Run** — FAIL
+- [x] **Step 3: Implement**
+- [x] **Step 4: Run** — PASS
+- [x] **Step 5: Commit**
 
 ### Task 5: AnalyzeViewModel と protocol 群
 
@@ -190,11 +192,11 @@ enum PromptBuilder {
 - `protocol LocationProviding: Sendable { func currentPlace() async -> Place? }`、`struct Place { name: String?; latitude: Double; longitude: Double }`
 - `@MainActor @Observable final class AnalyzeViewModel { enum Phase { idle, perceiving, generating, done(Entry), failed(String) }; var phase; init(perception:, generator:, location:, imageStore:, modelContext:); func analyze(_ image: UIImage) async; func regenerate(_ entry: Entry) async }`
 
-- [ ] **Step 1: Tests**（4 本: 成功で insight 付き Entry が保存される / generator unavailable で insightData nil + unavailableReason あり / generator throw で Entry 保存 + phase done + unavailableReason にエラー文 / location nil で placeName nil）
-- [ ] **Step 2: Run** — FAIL
-- [ ] **Step 3: Implement** — `async let` で位置と知覚を並列。生成は `availability` を先に見る
-- [ ] **Step 4: Run** — PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 1: Tests**（4 本: 成功で insight 付き Entry が保存される / generator unavailable で insightData nil + unavailableReason あり / generator throw で Entry 保存 + phase done + unavailableReason にエラー文 / location nil で placeName nil）
+- [x] **Step 2: Run** — FAIL
+- [x] **Step 3: Implement** — `async let` で位置と知覚を並列。生成は `availability` を先に見る
+- [x] **Step 4: Run** — PASS
+- [x] **Step 5: Commit**
 
 ### Task 6: UI（Collection / Capture / Detail）と App 配線
 
@@ -206,9 +208,9 @@ enum PromptBuilder {
 - Modify: `Meguri/MeguriApp.swift`（`.modelContainer(for: Entry.self)`）、削除: `ContentView.swift`
 - Create: `Meguri/AppDependencies.swift`（本番実装を束ねる）
 
-- [ ] **Step 1:** UI はプレビューとシミュレータで確認（単体テストなし）
-- [ ] **Step 2:** ビルド → シミュレータ起動 → 空状態 → ライブラリから画像を選ぶ → 詳細が出る → 一覧に戻る、を実機能で確認しスクリーンショットを残す
-- [ ] **Step 3: Commit**
+- [x] **Step 1:** UI はプレビューとシミュレータで確認（単体テストなし）
+- [x] **Step 2:** ビルド → シミュレータ起動 → 空状態 → ライブラリから画像を選ぶ → 詳細が出る → 一覧に戻る、を実機能で確認しスクリーンショットを残す
+- [x] **Step 3: Commit**
 
 ### Task 7: リリース準備
 
@@ -217,6 +219,6 @@ enum PromptBuilder {
 - Create: `CLAUDE.md`（リポジトリ固有の手順）
 - Modify: `README.md`
 
-- [ ] **Step 1:** `xcodebuild archive` がシミュレータなし・自動署名で通ることを確認
-- [ ] **Step 2:** asc の認証が有効なら `asc publish testflight` まで。無効なら手順だけ残す
-- [ ] **Step 3: Commit & push**
+- [x] **Step 1:** `xcodebuild archive` がシミュレータなし・自動署名で通ることを確認
+- [ ] **Step 2:** asc の認証が有効なら `asc publish testflight` まで。無効なら手順だけ残す（API キー失効のため未実施）
+- [x] **Step 3: Commit & push**
