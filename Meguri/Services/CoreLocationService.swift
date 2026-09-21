@@ -13,9 +13,11 @@ protocol LocationProviding: Sendable {
 
 final class CoreLocationService: LocationProviding {
     private let timeout: Duration
+    private let geocodeTimeout: Duration
 
-    init(timeout: Duration = .seconds(10)) {
+    init(timeout: Duration = .seconds(10), geocodeTimeout: Duration = .seconds(4)) {
         self.timeout = timeout
+        self.geocodeTimeout = geocodeTimeout
     }
 
     func currentPlace() async -> Place? {
@@ -42,10 +44,12 @@ final class CoreLocationService: LocationProviding {
         do {
             for try await update in CLLocationUpdate.liveUpdates() {
                 if let location = update.location {
-                    return Place(
-                        name: await Self.placeName(for: location),
+                    var place = Place(
+                        name: nil,
                         latitude: location.coordinate.latitude,
                         longitude: location.coordinate.longitude)
+                    place.name = await Self.placeName(for: location, timeout: geocodeTimeout)
+                    return place
                 }
                 if update.authorizationDenied || update.authorizationDeniedGlobally
                     || update.locationUnavailable
@@ -59,10 +63,19 @@ final class CoreLocationService: LocationProviding {
         return nil
     }
 
-    private static func placeName(for location: CLLocation) async -> String? {
-        guard let placemark = try? await CLGeocoder().reverseGeocodeLocation(location).first else {
-            return nil
+    // Bounded separately so a slow geocoder cannot cost the coordinates we already have.
+    private static func placeName(for location: CLLocation, timeout: Duration) async -> String? {
+        let placemark = await withTaskGroup(of: CLPlacemark?.self) { group in
+            group.addTask { try? await CLGeocoder().reverseGeocodeLocation(location).first }
+            group.addTask {
+                try? await Task.sleep(for: timeout)
+                return nil
+            }
+            let first = await group.next().flatMap { $0 }
+            group.cancelAll()
+            return first
         }
+        guard let placemark else { return nil }
         let candidates = [
             placemark.name, placemark.locality, placemark.administrativeArea, placemark.country
         ]

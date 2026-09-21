@@ -156,10 +156,16 @@ struct EntryDetailView: View {
         await viewModel.regenerate(entry)
     }
 
+    // Dismiss first: deleting a model this view still binds to can fault during the pop.
     private func delete() {
-        dependencies.imageStore.delete(fileName: entry.imageFileName)
-        modelContext.delete(entry)
-        try? modelContext.save()
+        let fileName = entry.imageFileName
+        let context = modelContext
+        let entry = entry
         dismiss()
+        Task { @MainActor in
+            dependencies.imageStore.delete(fileName: fileName)
+            context.delete(entry)
+            try? context.save()
+        }
     }
 }

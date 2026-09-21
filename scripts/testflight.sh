@@ -9,12 +9,15 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-APP_ID="${1:-${ASC_APP_ID:-}}"
+APP_ID="${ASC_APP_ID:-}"
+if [[ $# -gt 0 && "$1" != --* ]]; then
+  APP_ID="$1"
+  shift
+fi
 if [[ -z "$APP_ID" ]]; then
   echo "usage: scripts/testflight.sh APP_ID [--group NAME]" >&2
   exit 1
 fi
-shift || true
 
 xcodegen generate --quiet
 

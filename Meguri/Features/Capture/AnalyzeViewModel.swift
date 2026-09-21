@@ -67,7 +67,13 @@ final class AnalyzeViewModel {
 
             phase = .generating
             await fillInsight(of: entry)
-            try modelContext.save()
+            do {
+                try modelContext.save()
+            } catch {
+                modelContext.delete(entry)
+                imageStore.delete(fileName: stored.fileName)
+                throw error
+            }
             phase = .done(entry)
         } catch {
             phase = .failed(error.localizedDescription)
