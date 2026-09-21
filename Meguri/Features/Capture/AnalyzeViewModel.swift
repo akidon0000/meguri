@@ -15,6 +15,7 @@ final class AnalyzeViewModel {
     }
 
     private(set) var phase: Phase = .idle
+    private var runningTask: Task<Void, Never>?
 
     private let perception: any ImagePerceiving
     private let generator: any InsightGenerating
@@ -39,7 +40,14 @@ final class AnalyzeViewModel {
         self.locale = locale
     }
 
+    // SwiftUI cancels and re-runs `.task` while a cover is presented; the work must outlive that.
+    func start(_ image: UIImage) {
+        guard runningTask == nil else { return }
+        runningTask = Task { await analyze(image) }
+    }
+
     func analyze(_ image: UIImage) async {
+        guard case .idle = phase else { return }
         phase = .perceiving
         do {
             async let place = location.currentPlace()

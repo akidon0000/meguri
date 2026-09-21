@@ -4,6 +4,7 @@ options:
   deploymentTarget:
     iOS: "26.0"
   developmentLanguage: en
+  localizations: [en, ja]
   xcodeVersion: "27.0"
   createIntermediateGroups: true
   generateEmptyDirectories: true
@@ -32,9 +33,8 @@ targets:
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         ITSAppUsesNonExemptEncryption: false
-        NSCameraUsageDescription: "作品や風景を撮影して、その場で説明を生成するために使います。"
-        NSLocationWhenInUseUsageDescription: "撮影した場所の名前を記録し、説明の手がかりにするために使います。"
-        NSPhotoLibraryAddUsageDescription: "撮影した写真を保存するために使います。"
+        NSCameraUsageDescription: "Used to photograph artworks and places so Meguri can explain them."
+        NSLocationWhenInUseUsageDescription: "Used to record where a photo was taken and to give the explanation more context."
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.akidon0000.meguri

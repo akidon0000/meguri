@@ -1,0 +1,87 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "追加" } } }
+    },
+    "Apple Intelligence is not available right now." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence が今は使えません。" } } }
+    },
+    "Apple Intelligence is turned off. Enable it in Settings to get explanations." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence がオフです。設定でオンにすると説明が生成されます。" } } }
+    },
+    "Architecture" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "建築" } } }
+    },
+    "Artwork" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "作品" } } }
+    },
+    "Choose from Library" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "ライブラリから選ぶ" } } }
+    },
+    "Close" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "閉じる" } } }
+    },
+    "Couldn't read this photo" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "この写真を読み取れませんでした" } } }
+    },
+    "Delete" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "削除" } } }
+    },
+    "Delete this entry?" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "この記録を削除しますか？" } } }
+    },
+    "Finding out what it is…" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "調べています…" } } }
+    },
+    "Landscape" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "風景" } } }
+    },
+    "Looking at the photo…" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "写真を見ています…" } } }
+    },
+    "Meguri" : {
+      "shouldTranslate" : false
+    },
+    "No explanation yet" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "まだ説明がありません" } } }
+    },
+    "Other" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "その他" } } }
+    },
+    "Point at a painting, a building, or a view. Meguri explains what it is and keeps it here." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "絵画や建物、景色にカメラを向けてください。何なのかを説明して、ここに記録していきます。" } } }
+    },
+    "Take Photo" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "写真を撮る" } } }
+    },
+    "Take your first photo" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "最初の一枚を撮ろう" } } }
+    },
+    "The model couldn't produce an explanation this time." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "今回は説明を生成できませんでした。" } } }
+    },
+    "The model declined to describe this photo." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "この写真の説明は生成できない内容と判断されました。" } } }
+    },
+    "Too many requests right now. Try again in a moment." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "リクエストが混み合っています。少し待ってからもう一度お試しください。" } } }
+    },
+    "Your language isn't supported by the on-device model yet." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "この言語はまだオンデバイスモデルに対応していません。" } } }
+    },
+    "The on-device model is still downloading. Try again in a while." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "モデルをまだダウンロード中です。しばらくしてからもう一度お試しください。" } } }
+    },
+    "This device does not support Apple Intelligence." : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "この端末は Apple Intelligence に対応していません。" } } }
+    },
+    "Try again" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "もう一度" } } }
+    },
+    "Untitled" : {
+      "localizations" : { "ja" : { "stringUnit" : { "state" : "translated", "value" : "無題" } } }
+    }
+  },
+  "version" : "1.0"
+}

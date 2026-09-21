@@ -1,0 +1,20 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSCameraUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Used to photograph artworks and places so Meguri can explain them." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "作品や風景を撮影して、その場で説明を生成するために使います。" } }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Used to record where a photo was taken and to give the explanation more context." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "撮影した場所の名前を記録し、説明の手がかりにするために使います。" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

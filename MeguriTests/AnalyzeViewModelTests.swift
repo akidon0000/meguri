@@ -125,6 +125,36 @@ import UIKit
         #expect(generator.receivedPrompts.first?.contains("castle") == true)
     }
 
+    @Test func ignoresSecondAnalyzeCall() async throws {
+        let context = try makeContext()
+        let viewModel = makeViewModel(context: context)
+
+        await viewModel.analyze(makeImage())
+        await viewModel.analyze(makeImage())
+
+        #expect(try context.fetch(FetchDescriptor<Entry>()).count == 1)
+    }
+
+    @Test func startSurvivesCancellationOfCaller() async throws {
+        let context = try makeContext()
+        let viewModel = makeViewModel(context: context)
+
+        let caller = Task { viewModel.start(makeImage()) }
+        caller.cancel()
+        await caller.value
+        viewModel.start(makeImage())
+
+        for _ in 0..<50 {
+            if case .done = viewModel.phase { break }
+            try await Task.sleep(for: .milliseconds(20))
+        }
+        guard case .done = viewModel.phase else {
+            Issue.record("expected .done, got \(viewModel.phase)")
+            return
+        }
+        #expect(try context.fetch(FetchDescriptor<Entry>()).count == 1)
+    }
+
     @Test func failsWhenPerceptionThrows() async throws {
         let context = try makeContext()
         let viewModel = makeViewModel(perception: FakePerception(error: FakeError.boom), context: context)
