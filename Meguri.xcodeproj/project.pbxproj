@@ -3,40 +3,42 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		345C365580384D351DD1CB67 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE140B0AADCF20A45D07C87 /* SmokeTests.swift */; };
+		6D835BF53AF249EB866B10C5 /* MeguriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B00A4B9D3DC7E860F50739 /* MeguriApp.swift */; };
 		96552E64683516D283C8E4F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4820E16A663B4EDB7005D0F /* ContentView.swift */; };
-		B0C55F6EC6492E7ACD134FA9 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 744FB92BB539BDCE60F471BB /* RswiftLibrary */; };
-		E1FFAFF7067D3DA06F2F108D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0D42E33434A856BBCE29F3 /* App.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1E7DC24D2B8A3C637267D65B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA26CDCDB188B95D3F0F870 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8415CCB4DFA3A76F379E78F0;
+			remoteInfo = Meguri;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		4DE140B0AADCF20A45D07C87 /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
 		76DFACA70404A3C240BE6481 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		7E0D42E33434A856BBCE29F3 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		77B00A4B9D3DC7E860F50739 /* MeguriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeguriApp.swift; sourceTree = "<group>"; };
 		C1A15230EE9D26AEA53827A9 /* Meguri.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Meguri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4820E16A663B4EDB7005D0F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E9DECC39AFC535EE59050FCC /* MeguriTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MeguriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		AC46DC1564FEF28C62B63AB8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B0C55F6EC6492E7ACD134FA9 /* RswiftLibrary in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0943CFF7338D3D610C2D2134 /* Meguri */ = {
 			isa = PBXGroup;
 			children = (
-				7E0D42E33434A856BBCE29F3 /* App.swift */,
 				E4820E16A663B4EDB7005D0F /* ContentView.swift */,
 				76DFACA70404A3C240BE6481 /* Info.plist */,
+				77B00A4B9D3DC7E860F50739 /* MeguriApp.swift */,
+				BFB5C546238D3F881EC9433C /* Resources */,
 			);
 			path = Meguri;
 			sourceTree = "<group>";
@@ -45,16 +47,33 @@
 			isa = PBXGroup;
 			children = (
 				C1A15230EE9D26AEA53827A9 /* Meguri.app */,
+				E9DECC39AFC535EE59050FCC /* MeguriTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9CB8457FE0DB396BF12B5FE6 /* MeguriTests */ = {
+			isa = PBXGroup;
+			children = (
+				4DE140B0AADCF20A45D07C87 /* SmokeTests.swift */,
+			);
+			path = MeguriTests;
 			sourceTree = "<group>";
 		};
 		A18C342CE34BC14328756B70 = {
 			isa = PBXGroup;
 			children = (
 				0943CFF7338D3D610C2D2134 /* Meguri */,
+				9CB8457FE0DB396BF12B5FE6 /* MeguriTests */,
 				92D6B9804E1C405CA26D75AB /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		BFB5C546238D3F881EC9433C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,21 +84,35 @@
 			buildConfigurationList = 6A6FB7AEFCA6EA5B68A92C46 /* Build configuration list for PBXNativeTarget "Meguri" */;
 			buildPhases = (
 				81B449C3E1552F2A77B8844A /* Sources */,
-				AC46DC1564FEF28C62B63AB8 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				983D1D70EEABC04C5B8D705D /* PBXTargetDependency */,
-				2658D0D9B849DE12B0C06733 /* PBXTargetDependency */,
 			);
 			name = Meguri;
 			packageProductDependencies = (
-				744FB92BB539BDCE60F471BB /* RswiftLibrary */,
 			);
 			productName = Meguri;
 			productReference = C1A15230EE9D26AEA53827A9 /* Meguri.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F97DC17D8F617B6BEDAC97F8 /* MeguriTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B78351CDCFEF35B97FB02C46 /* Build configuration list for PBXNativeTarget "MeguriTests" */;
+			buildPhases = (
+				992566D83F2E02D9C5628185 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A79149CC94FFD2165ECFA528 /* PBXTargetDependency */,
+			);
+			name = MeguriTests;
+			packageProductDependencies = (
+			);
+			productName = MeguriTests;
+			productReference = E9DECC39AFC535EE59050FCC /* MeguriTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -88,8 +121,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
+					8415CCB4DFA3A76F379E78F0 = {
+						DevelopmentTeam = XSC9AJPSP3;
+						ProvisioningStyle = Automatic;
+					};
+					F97DC17D8F617B6BEDAC97F8 = {
+						DevelopmentTeam = XSC9AJPSP3;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = B1328B4E8E15E9E95D22C8B6 /* Build configuration list for PBXProject "Meguri" */;
@@ -102,15 +143,12 @@
 			);
 			mainGroup = A18C342CE34BC14328756B70;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				1D9C56DB9B58264473817E26 /* XCRemoteSwiftPackageReference "R.swift" */,
-				C758913783CFF28DA53BA1A9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
-			);
-			preferredProjectObjectVersion = 54;
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8415CCB4DFA3A76F379E78F0 /* Meguri */,
+				F97DC17D8F617B6BEDAC97F8 /* MeguriTests */,
 			);
 		};
 /* End PBXProject section */
@@ -120,21 +158,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1FFAFF7067D3DA06F2F108D /* App.swift in Sources */,
 				96552E64683516D283C8E4F6 /* ContentView.swift in Sources */,
+				6D835BF53AF249EB866B10C5 /* MeguriApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		992566D83F2E02D9C5628185 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				345C365580384D351DD1CB67 /* SmokeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2658D0D9B849DE12B0C06733 /* PBXTargetDependency */ = {
+		A79149CC94FFD2165ECFA528 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 8B90BAF7C26115E44EF32B6C /* SwiftLintBuildToolPlugin */;
-		};
-		983D1D70EEABC04C5B8D705D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AFA3AEEF93FFD1856EF1FC84 /* RswiftGenerateInternalResources */;
+			target = 8415CCB4DFA3A76F379E78F0 /* Meguri */;
+			targetProxy = 1E7DC24D2B8A3C637267D65B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -142,40 +185,199 @@
 		0662045B2BEE2EA5CA6EB8C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = XSC9AJPSP3;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
 		480CF1EE4921B4058B3DC441 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XSC9AJPSP3;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
 		7490EB8BC37CAFB7675D085A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GENERATE_INFOPLIST_FILE = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Meguri/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.akidon0000.makexproj.gen.Meguri;
-				PRODUCT_NAME = $TARGET_NAME;
-				SWIFT_VERSION = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.akidon0000.meguri;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
+		};
+		9250EC2D7039C71B454C391F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.akidon0000.meguri.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Meguri.app/Meguri";
+			};
+			name = Release;
+		};
+		E7F54D1C01BE761C5EB07CAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.akidon0000.meguri.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Meguri.app/Meguri";
+			};
+			name = Debug;
 		};
 		FE52929A30098E6117C3B15E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GENERATE_INFOPLIST_FILE = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Meguri/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.akidon0000.makexproj.gen.Meguri;
-				PRODUCT_NAME = $TARGET_NAME;
-				SWIFT_VERSION = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.akidon0000.meguri;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -200,44 +402,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		B78351CDCFEF35B97FB02C46 /* Build configuration list for PBXNativeTarget "MeguriTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7F54D1C01BE761C5EB07CAB /* Debug */,
+				9250EC2D7039C71B454C391F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1D9C56DB9B58264473817E26 /* XCRemoteSwiftPackageReference "R.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mac-cain13/R.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.8.0;
-			};
-		};
-		C758913783CFF28DA53BA1A9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.59.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		744FB92BB539BDCE60F471BB /* RswiftLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1D9C56DB9B58264473817E26 /* XCRemoteSwiftPackageReference "R.swift" */;
-			productName = RswiftLibrary;
-		};
-		8B90BAF7C26115E44EF32B6C /* SwiftLintBuildToolPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C758913783CFF28DA53BA1A9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
-			productName = "plugin:SwiftLintBuildToolPlugin";
-		};
-		AFA3AEEF93FFD1856EF1FC84 /* RswiftGenerateInternalResources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1D9C56DB9B58264473817E26 /* XCRemoteSwiftPackageReference "R.swift" */;
-			productName = "plugin:RswiftGenerateInternalResources";
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1FA26CDCDB188B95D3F0F870 /* Project object */;
 }
