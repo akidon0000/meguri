@@ -22,7 +22,8 @@ final class FileImageStore: ImageStoring {
     private let jpegQuality: CGFloat = 0.85
 
     static let `default` = FileImageStore(
-        directory: URL.applicationSupportDirectory.appendingPathComponent("Images", isDirectory: true))
+        directory: URL.applicationSupportDirectory.appendingPathComponent(
+            "Images", isDirectory: true))
 
     init(directory: URL) {
         self.directory = directory
@@ -50,7 +51,8 @@ final class FileImageStore: ImageStoring {
 
     // Renders at scale 1 so the longest side is at most thumbnailMaxSide pixels regardless of screen scale.
     private func makeThumbnail(of image: UIImage) -> UIImage {
-        let pixelSize = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
+        let pixelSize = CGSize(
+            width: image.size.width * image.scale, height: image.size.height * image.scale)
         let longest = max(pixelSize.width, pixelSize.height)
         let ratio = min(1, thumbnailMaxSide / longest)
         let target = CGSize(

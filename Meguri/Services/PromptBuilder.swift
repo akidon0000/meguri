@@ -9,11 +9,14 @@ enum PromptBuilder {
         confident about; when unsure, describe what is seen and say that the identification is uncertain.
         """
 
-    static func prompt(labels: [String], texts: [String], placeName: String?, locale: Locale) -> String {
+    static func prompt(
+        labels: [String], texts: [String], placeName: String?, locale: Locale
+    ) -> String {
         var sections: [String] = []
 
         if !texts.isEmpty {
-            sections.append("Text seen in the photo:\n" + texts.map { "- \($0)" }.joined(separator: "\n"))
+            sections.append(
+                "Text seen in the photo:\n" + texts.map { "- \($0)" }.joined(separator: "\n"))
         }
         if !labels.isEmpty {
             sections.append("Visual labels: " + labels.joined(separator: ", "))
@@ -24,7 +27,8 @@ enum PromptBuilder {
         if texts.isEmpty && labels.isEmpty {
             sections.append(
                 "There is little information extracted from the photo. "
-                    + "Describe in general terms what a visitor at this place would likely be looking at.")
+                    + "Describe in general terms what a visitor at this place would likely be looking at."
+            )
         }
         sections.append("Answer in \(languageName(for: locale)).")
 

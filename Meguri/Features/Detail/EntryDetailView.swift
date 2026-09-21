@@ -34,7 +34,9 @@ struct EntryDetailView: View {
                 }
             }
         }
-        .confirmationDialog("Delete this entry?", isPresented: $confirmsDelete, titleVisibility: .visible) {
+        .confirmationDialog(
+            "Delete this entry?", isPresented: $confirmsDelete, titleVisibility: .visible
+        ) {
             Button("Delete", role: .destructive, action: delete)
         }
     }
@@ -60,7 +62,8 @@ struct EntryDetailView: View {
             Text(insight.title)
                 .font(.title2.weight(.bold))
 
-            let byline = [insight.creator, insight.era].filter { !$0.isEmpty }.joined(separator: " · ")
+            let byline = [insight.creator, insight.era].filter { !$0.isEmpty }.joined(
+                separator: " · ")
             if !byline.isEmpty {
                 Text(byline)
                     .font(.subheadline)
@@ -88,16 +91,20 @@ struct EntryDetailView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(.background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(
+            .background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
     private var unavailableCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label("No explanation yet", systemImage: "sparkles.slash")
                 .font(.headline)
-            Text(entry.unavailableReason ?? String(localized: "Apple Intelligence is not available right now."))
-                .font(.callout)
-                .foregroundStyle(.secondary)
+            Text(
+                entry.unavailableReason
+                    ?? String(localized: "Apple Intelligence is not available right now.")
+            )
+            .font(.callout)
+            .foregroundStyle(.secondary)
             Button {
                 Task { await regenerate() }
             } label: {
@@ -112,7 +119,8 @@ struct EntryDetailView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(.background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(
+            .background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
     private var metadata: some View {
@@ -122,8 +130,10 @@ struct EntryDetailView: View {
             }
             Label(entry.createdAt.formatted(date: .long, time: .shortened), systemImage: "calendar")
             if !entry.recognizedTexts.isEmpty {
-                Label(entry.recognizedTexts.joined(separator: " / "), systemImage: "text.viewfinder")
-                    .lineLimit(3)
+                Label(
+                    entry.recognizedTexts.joined(separator: " / "), systemImage: "text.viewfinder"
+                )
+                .lineLimit(3)
             }
         }
         .font(.footnote)

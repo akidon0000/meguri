@@ -10,7 +10,7 @@ struct CollectionView: View {
     @State private var pickedItem: PhotosPickerItem?
     @State private var showsCamera = false
     @State private var showsLibrary = false
-    @State private var imageToAnalyze: UIImage?
+    @State private var imageToAnalyze: PickedImage?
 
     private let columns = [GridItem(.adaptive(minimum: 150), spacing: 12)]
 
@@ -36,14 +36,14 @@ struct CollectionView: View {
         .fullScreenCover(isPresented: $showsCamera) {
             CameraPicker { image in
                 showsCamera = false
-                imageToAnalyze = image
+                imageToAnalyze = PickedImage(image: image)
             }
             .ignoresSafeArea()
         }
         .photosPicker(isPresented: $showsLibrary, selection: $pickedItem, matching: .images)
-        .fullScreenCover(item: $imageToAnalyze) { image in
+        .fullScreenCover(item: $imageToAnalyze) { picked in
             AnalyzingView(
-                image: image,
+                image: picked.image,
                 viewModel: dependencies.makeAnalyzeViewModel(modelContext: modelContext)
             ) {
                 imageToAnalyze = nil
@@ -52,8 +52,10 @@ struct CollectionView: View {
         .onChange(of: pickedItem) { _, item in
             guard let item else { return }
             Task {
-                if let data = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: data) {
-                    imageToAnalyze = image
+                if let data = try? await item.loadTransferable(type: Data.self),
+                    let image = UIImage(data: data)
+                {
+                    imageToAnalyze = PickedImage(image: image)
                 }
                 pickedItem = nil
             }
@@ -78,7 +80,9 @@ struct CollectionView: View {
         ContentUnavailableView {
             Label("Take your first photo", systemImage: "photo.on.rectangle.angled")
         } description: {
-            Text("Point at a painting, a building, or a view. Meguri explains what it is and keeps it here.")
+            Text(
+                "Point at a painting, a building, or a view. Meguri explains what it is and keeps it here."
+            )
         } actions: {
             addMenu
                 .buttonStyle(.borderedProminent)
@@ -103,10 +107,6 @@ struct CollectionView: View {
             Label("Add", systemImage: "plus")
         }
     }
-}
-
-extension UIImage: @retroactive Identifiable {
-    public var id: ObjectIdentifier { ObjectIdentifier(self) }
 }
 
 #Preview {

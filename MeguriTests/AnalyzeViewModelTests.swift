@@ -7,7 +7,8 @@ import UIKit
 
 @Suite(.serialized) @MainActor struct AnalyzeViewModelTests {
     private let sampleInsight = Insight(
-        title: "睡蓮", creator: "モネ", era: "1906", summary: "池。", funFacts: ["連作"], category: .artwork)
+        title: "睡蓮", creator: "モネ", era: "1906", summary: "池。", funFacts: ["連作"], category: .artwork
+    )
 
     private func makeContext() throws -> ModelContext {
         let container = try ModelContainer(
@@ -23,14 +24,16 @@ import UIKit
     }
 
     private func makeStore() -> FileImageStore {
-        FileImageStore(directory: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString))
+        FileImageStore(
+            directory: FileManager.default.temporaryDirectory.appendingPathComponent(
+                UUID().uuidString))
     }
 
     private func makeViewModel(
+        context: ModelContext,
         perception: FakePerception = FakePerception(),
         generator: FakeGenerator = FakeGenerator(),
-        location: FakeLocation = FakeLocation(),
-        context: ModelContext
+        location: FakeLocation = FakeLocation()
     ) -> AnalyzeViewModel {
         AnalyzeViewModel(
             perception: perception, generator: generator, location: location,
@@ -40,10 +43,11 @@ import UIKit
     @Test func savesEntryWithInsightOnSuccess() async throws {
         let context = try makeContext()
         let generator = FakeGenerator(result: .success(sampleInsight))
-        let perception = FakePerception(perception: Perception(labels: ["painting"], texts: ["Water Lilies"]))
+        let perception = FakePerception(
+            perception: Perception(labels: ["painting"], texts: ["Water Lilies"]))
         let location = FakeLocation(place: Place(name: "国立西洋美術館", latitude: 35.7, longitude: 139.8))
         let viewModel = makeViewModel(
-            perception: perception, generator: generator, location: location, context: context)
+            context: context, perception: perception, generator: generator, location: location)
 
         await viewModel.analyze(makeImage())
 
@@ -64,8 +68,9 @@ import UIKit
 
     @Test func savesEntryWithoutInsightWhenGeneratorUnavailable() async throws {
         let context = try makeContext()
-        let generator = FakeGenerator(availability: .unavailable(reason: "Apple Intelligence is off"))
-        let viewModel = makeViewModel(generator: generator, context: context)
+        let generator = FakeGenerator(
+            availability: .unavailable(reason: "Apple Intelligence is off"))
+        let viewModel = makeViewModel(context: context, generator: generator)
 
         await viewModel.analyze(makeImage())
 
@@ -82,7 +87,7 @@ import UIKit
     @Test func savesEntryAndRecordsErrorWhenGenerationThrows() async throws {
         let context = try makeContext()
         let generator = FakeGenerator(result: .failure(FakeError.boom))
-        let viewModel = makeViewModel(generator: generator, context: context)
+        let viewModel = makeViewModel(context: context, generator: generator)
 
         await viewModel.analyze(makeImage())
 
@@ -96,7 +101,7 @@ import UIKit
 
     @Test func savesEntryWithoutPlaceWhenLocationUnknown() async throws {
         let context = try makeContext()
-        let viewModel = makeViewModel(location: FakeLocation(place: nil), context: context)
+        let viewModel = makeViewModel(context: context, location: FakeLocation(place: nil))
 
         await viewModel.analyze(makeImage())
 
@@ -112,11 +117,12 @@ import UIKit
         let context = try makeContext()
         let generator = FakeGenerator(result: .success(sampleInsight))
         let entry = Entry(
-            imageFileName: "x.jpg", thumbnailData: Data(), placeName: "Tokyo", perceivedLabels: ["castle"],
+            imageFileName: "x.jpg", thumbnailData: Data(), placeName: "Tokyo",
+            perceivedLabels: ["castle"],
             recognizedTexts: [])
         entry.unavailableReason = "earlier failure"
         context.insert(entry)
-        let viewModel = makeViewModel(generator: generator, context: context)
+        let viewModel = makeViewModel(context: context, generator: generator)
 
         await viewModel.regenerate(entry)
 
@@ -157,7 +163,8 @@ import UIKit
 
     @Test func failsWhenPerceptionThrows() async throws {
         let context = try makeContext()
-        let viewModel = makeViewModel(perception: FakePerception(error: FakeError.boom), context: context)
+        let viewModel = makeViewModel(
+            context: context, perception: FakePerception(error: FakeError.boom))
 
         await viewModel.analyze(makeImage())
 
@@ -167,49 +174,4 @@ import UIKit
         }
         #expect(try context.fetch(FetchDescriptor<Entry>()).isEmpty)
     }
-}
-
-// MARK: - Fakes
-
-enum FakeError: Error { case boom }
-
-final class FakePerception: ImagePerceiving, @unchecked Sendable {
-    let perception: Perception
-    let error: (any Error)?
-
-    init(perception: Perception = Perception(labels: ["label"], texts: []), error: (any Error)? = nil) {
-        self.perception = perception
-        self.error = error
-    }
-
-    func perceive(_ image: UIImage) async throws -> Perception {
-        if let error { throw error }
-        return perception
-    }
-}
-
-final class FakeGenerator: InsightGenerating, @unchecked Sendable {
-    let availability: GeneratorAvailability
-    let result: Result<Insight, any Error>
-    private(set) var receivedPrompts: [String] = []
-
-    init(
-        availability: GeneratorAvailability = .available,
-        result: Result<Insight, any Error> = .success(
-            Insight(title: "t", creator: "", era: "", summary: "s", funFacts: [], category: .other))
-    ) {
-        self.availability = availability
-        self.result = result
-    }
-
-    func generate(prompt: String) async throws -> Insight {
-        receivedPrompts.append(prompt)
-        return try result.get()
-    }
-}
-
-final class FakeLocation: LocationProviding, @unchecked Sendable {
-    let place: Place?
-    init(place: Place? = Place(name: "Somewhere", latitude: 1, longitude: 2)) { self.place = place }
-    func currentPlace() async -> Place? { place }
 }

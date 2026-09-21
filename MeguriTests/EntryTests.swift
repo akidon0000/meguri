@@ -14,7 +14,8 @@ import Testing
     @Test func persistsInsightAsJSON() throws {
         let context = try makeContext()
         let insight = Insight(
-            title: "睡蓮", creator: "モネ", era: "1906", summary: "池。", funFacts: [], category: .artwork)
+            title: "睡蓮", creator: "モネ", era: "1906", summary: "池。", funFacts: [], category: .artwork
+        )
         let entry = Entry(imageFileName: "a.jpg", thumbnailData: Data([1, 2, 3]))
         entry.insight = insight
         context.insert(entry)
@@ -34,8 +35,12 @@ import Testing
 
     @Test func sortsNewestFirst() throws {
         let context = try makeContext()
-        let old = Entry(imageFileName: "old.jpg", thumbnailData: Data(), createdAt: Date(timeIntervalSince1970: 1))
-        let new = Entry(imageFileName: "new.jpg", thumbnailData: Data(), createdAt: Date(timeIntervalSince1970: 2))
+        let old = Entry(
+            imageFileName: "old.jpg", thumbnailData: Data(),
+            createdAt: Date(timeIntervalSince1970: 1))
+        let new = Entry(
+            imageFileName: "new.jpg", thumbnailData: Data(),
+            createdAt: Date(timeIntervalSince1970: 2))
         context.insert(old)
         context.insert(new)
 

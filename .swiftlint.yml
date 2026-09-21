@@ -5,6 +5,17 @@
 
 # デフォルト無効で有効にするルール
 # (コメントアウトすることでルールが ※※無効※※ となる)
+# swift-format（CI が自動整形）と衝突するルールは無効化する
+disabled_rules:
+  - attributes
+  - multiline_arguments_brackets
+  - opening_brace
+  - conditional_returns_on_newline
+  - switch_case_on_newline
+  - vertical_whitespace_between_cases
+  # redundant_string_enum_value と矛盾するため無効化
+  - explicit_enum_raw_value
+
 opt_in_rules:
   - array_init
   - attributes
@@ -120,7 +131,8 @@ opt_in_rules:
 
 # 対象のファイル・フォルダ
 included:
-  - Tokumemo
+  - Meguri
+  - MeguriTests
 
 # 対象外のファイル・フォルダ
 excluded:

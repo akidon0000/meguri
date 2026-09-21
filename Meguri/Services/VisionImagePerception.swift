@@ -29,23 +29,34 @@ struct VisionImagePerception: ImagePerceiving {
         return await Perception(labels: labels, texts: texts)
     }
 
-    private func classify(_ cgImage: CGImage, orientation: CGImagePropertyOrientation) async -> [String] {
-        guard let observations = try? await ClassifyImageRequest().perform(on: cgImage, orientation: orientation)
+    private func classify(
+        _ cgImage: CGImage, orientation: CGImagePropertyOrientation
+    ) async -> [String] {
+        guard
+            let observations = try? await ClassifyImageRequest().perform(
+                on: cgImage, orientation: orientation)
         else { return [] }
-        return observations
+        return
+            observations
             .filter { $0.confidence >= minLabelConfidence }
             .sorted { $0.confidence > $1.confidence }
             .prefix(maxLabels)
             .map { $0.identifier.replacingOccurrences(of: "_", with: " ") }
     }
 
-    private func recognizeText(_ cgImage: CGImage, orientation: CGImagePropertyOrientation) async -> [String] {
+    private func recognizeText(
+        _ cgImage: CGImage, orientation: CGImagePropertyOrientation
+    ) async -> [String] {
         var request = RecognizeTextRequest()
         request.recognitionLevel = .accurate
         request.usesLanguageCorrection = true
-        guard let observations = try? await request.perform(on: cgImage, orientation: orientation) else { return [] }
-        return observations
-            .compactMap { $0.topCandidates(1).first?.string.trimmingCharacters(in: .whitespacesAndNewlines) }
+        guard let observations = try? await request.perform(on: cgImage, orientation: orientation)
+        else { return [] }
+        return
+            observations
+            .compactMap {
+                $0.topCandidates(1).first?.string.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
             .filter { $0.count >= 2 }
     }
 }

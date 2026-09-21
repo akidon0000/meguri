@@ -22,7 +22,9 @@ import UIKit
         let stored = try store.save(makeImage())
 
         #expect(stored.fileName.hasSuffix(".jpg"))
-        #expect(FileManager.default.fileExists(atPath: store.directory.appendingPathComponent(stored.fileName).path))
+        #expect(
+            FileManager.default.fileExists(
+                atPath: store.directory.appendingPathComponent(stored.fileName).path))
 
         let thumb = try #require(UIImage(data: stored.thumbnailData))
         #expect(max(thumb.size.width * thumb.scale, thumb.size.height * thumb.scale) <= 256)

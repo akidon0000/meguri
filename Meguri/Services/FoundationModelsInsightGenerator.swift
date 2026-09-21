@@ -46,7 +46,8 @@ struct FoundationModelsInsightGenerator: InsightGenerating {
         case .rateLimited, .concurrentRequests:
             return String(localized: "Too many requests right now. Try again in a moment.")
         case .assetsUnavailable:
-            return String(localized: "The on-device model is still downloading. Try again in a while.")
+            return String(
+                localized: "The on-device model is still downloading. Try again in a while.")
         case .unsupportedLanguageOrLocale:
             return String(localized: "Your language isn't supported by the on-device model yet.")
         default:
@@ -54,14 +55,19 @@ struct FoundationModelsInsightGenerator: InsightGenerating {
         }
     }
 
-    private static func describe(_ reason: SystemLanguageModel.Availability.UnavailableReason) -> String {
+    private static func describe(
+        _ reason: SystemLanguageModel.Availability.UnavailableReason
+    ) -> String {
         switch reason {
         case .deviceNotEligible:
             return String(localized: "This device does not support Apple Intelligence.")
         case .appleIntelligenceNotEnabled:
-            return String(localized: "Apple Intelligence is turned off. Enable it in Settings to get explanations.")
+            return String(
+                localized:
+                    "Apple Intelligence is turned off. Enable it in Settings to get explanations.")
         case .modelNotReady:
-            return String(localized: "The on-device model is still downloading. Try again in a while.")
+            return String(
+                localized: "The on-device model is still downloading. Try again in a while.")
         @unknown default:
             return String(localized: "Apple Intelligence is not available right now.")
         }

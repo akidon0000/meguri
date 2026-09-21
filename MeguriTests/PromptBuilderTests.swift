@@ -19,7 +19,8 @@ import Testing
     }
 
     @Test func includesPlaceWhenKnown() {
-        let prompt = PromptBuilder.prompt(labels: [], texts: [], placeName: "国立西洋美術館", locale: japanese)
+        let prompt = PromptBuilder.prompt(
+            labels: [], texts: [], placeName: "国立西洋美術館", locale: japanese)
         #expect(prompt.contains("国立西洋美術館"))
     }
 
@@ -29,14 +30,19 @@ import Testing
     }
 
     @Test func doesNotNoteSparseInputWhenLabelsExist() {
-        let prompt = PromptBuilder.prompt(labels: ["castle"], texts: [], placeName: nil, locale: japanese)
+        let prompt = PromptBuilder.prompt(
+            labels: ["castle"], texts: [], placeName: nil, locale: japanese)
         #expect(!prompt.contains("little information"))
     }
 
     @Test func requestsAnswerLanguageFromLocale() {
-        #expect(PromptBuilder.prompt(labels: ["x"], texts: [], placeName: nil, locale: japanese).contains("Japanese"))
         #expect(
-            PromptBuilder.prompt(labels: ["x"], texts: [], placeName: nil, locale: Locale(identifier: "en_US"))
-                .contains("English"))
+            PromptBuilder.prompt(labels: ["x"], texts: [], placeName: nil, locale: japanese)
+                .contains("Japanese"))
+        #expect(
+            PromptBuilder.prompt(
+                labels: ["x"], texts: [], placeName: nil, locale: Locale(identifier: "en_US")
+            )
+            .contains("English"))
     }
 }

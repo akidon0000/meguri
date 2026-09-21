@@ -87,7 +87,8 @@ final class AnalyzeViewModel {
             return
         }
         let prompt = PromptBuilder.prompt(
-            labels: entry.perceivedLabels, texts: entry.recognizedTexts, placeName: entry.placeName, locale: locale)
+            labels: entry.perceivedLabels, texts: entry.recognizedTexts, placeName: entry.placeName,
+            locale: locale)
         do {
             entry.insight = try await generator.generate(prompt: prompt)
             entry.unavailableReason = nil

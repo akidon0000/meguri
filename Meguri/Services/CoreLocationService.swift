@@ -25,7 +25,7 @@ final class CoreLocationService: LocationProviding {
                 try? await Task.sleep(for: timeout)
                 return nil
             }
-            let first = await group.next() ?? nil
+            let first = await group.next().flatMap { $0 }
             group.cancelAll()
             return first
         }
@@ -47,7 +47,9 @@ final class CoreLocationService: LocationProviding {
                         latitude: location.coordinate.latitude,
                         longitude: location.coordinate.longitude)
                 }
-                if update.authorizationDenied || update.authorizationDeniedGlobally || update.locationUnavailable {
+                if update.authorizationDenied || update.authorizationDeniedGlobally
+                    || update.locationUnavailable
+                {
                     return nil
                 }
             }
@@ -58,8 +60,12 @@ final class CoreLocationService: LocationProviding {
     }
 
     private static func placeName(for location: CLLocation) async -> String? {
-        guard let placemark = try? await CLGeocoder().reverseGeocodeLocation(location).first else { return nil }
-        let candidates = [placemark.name, placemark.locality, placemark.administrativeArea, placemark.country]
+        guard let placemark = try? await CLGeocoder().reverseGeocodeLocation(location).first else {
+            return nil
+        }
+        let candidates = [
+            placemark.name, placemark.locality, placemark.administrativeArea, placemark.country
+        ]
         var seen = Set<String>()
         let parts = candidates.compactMap { $0 }.filter { !$0.isEmpty && seen.insert($0).inserted }
         return parts.isEmpty ? nil : parts.prefix(3).joined(separator: ", ")
