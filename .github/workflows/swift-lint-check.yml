@@ -1,0 +1,28 @@
+name: swift-lint-chaeck
+
+on:
+  pull_request:
+
+# スクリプトは、「(-e) エラーが発生したら終了」「(-u) 未定義の変数を使うとエラー」「(-o pipefail) 失敗したコマンドのエラーを検知」する
+defaults:
+  run:
+    shell: bash -euo pipefail {0}
+    
+# 連続してpushすると一つ前の実行中のjobが停止される
+# https://docs.github.com/ja/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+jobs:
+  danger:
+  # macosはgithub-actionsの無料時間消費倍率がlinux系の10倍のため
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Danger
+      # https://github.com/417-72KI/danger-swiftlint
+        uses: 417-72KI/danger-swiftlint@v5.10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

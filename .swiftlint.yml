@@ -1,0 +1,137 @@
+# SwiftLintドキュメント
+# https://github.com/realm/SwiftLint/blob/main/README.md
+# SwiftLintルール詳細ドキュメント
+# https://realm.github.io/SwiftLint/{ルール名}.html
+
+# デフォルト無効で有効にするルール
+# (コメントアウトすることでルールが ※※無効※※ となる)
+opt_in_rules:
+  - array_init
+  - attributes
+  - closure_body_length
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - conditional_returns_on_newline
+  - contains_over_first_not_nil
+  - convenience_type
+  - discouraged_object_literal
+  - discouraged_optional_boolean
+  - discouraged_optional_collection
+  - empty_count
+  - empty_string
+  - empty_xctest_method
+  # https://realm.github.io/SwiftLint/explicit_acl.html
+  #- explicit_acl # アクセス制御の明示は堅牢性向上につながるが、サンプルでは省略で十分。
+  - explicit_enum_raw_value
+  - explicit_init
+  # https://realm.github.io/SwiftLint/explicit_self.html
+  #- explicit_self # 関数は `self.` を付けずに呼び出したいため
+  # https://realm.github.io/SwiftLint/explicit_top_level_acl.html
+  #- explicit_top_level_acl # アクセス制御の明示は堅牢性向上につながるが、サンプルでは省略で十分。
+  # https://realm.github.io/SwiftLint/explicit_type_interface.html
+  #- explicit_type_interface # できる限り型推論したいため
+  - extension_access_modifier
+  - fallthrough
+  - fatal_error_message
+  # https://realm.github.io/SwiftLint/file_header.html
+  #- file_header # 個人アプリではノイズになるため
+  - file_name
+  - file_name_no_space
+  - file_types_order
+  - first_where
+  - force_unwrapping
+  - function_default_parameter_at_end
+  - ibinspectable_in_extension
+  - identical_operands
+  # https://realm.github.io/SwiftLint/implicit_return.html
+  #- implicit_return # 認知的負荷が増加する懸念があるため
+  - implicitly_unwrapped_optional
+  - indentation_width
+  - joined_default_parameter
+  - last_where
+  - legacy_multiple
+  - legacy_objc_type
+  - legacy_random
+  # https://realm.github.io/SwiftLint/let_var_whitespace.html
+  #- let_var_whitespace # 空白行を設けたくないこともあるため
+  - literal_expression_end_indentation
+  - lower_acl_than_parent
+  # https://realm.github.io/SwiftLint/missing_docs.html
+  #- missing_docs # 必ずしもドキュメントが必要ではないため
+  - modifier_order
+  # https://realm.github.io/SwiftLint/multiline_arguments.html
+  #- multiline_arguments # 引数は同じ行に2つ入れたいこともあるため
+  - multiline_arguments_brackets
+  - multiline_function_chains
+  - multiline_literal_brackets
+  # https://realm.github.io/SwiftLint/explicit_self.html
+  #- multiline_parameters # 引数は同じ行に2つ入れたいこともあるため
+  - multiline_parameters_brackets
+  - nimble_operator
+  - no_extension_access_modifier
+  - no_grouping_extension
+  - nslocalizedstring_key
+  # https://realm.github.io/SwiftLint/number_separator.html
+  #- number_separator # 数字を `_` で区切りたくないため
+  - object_literal
+  - operator_usage_whitespace
+  - overridden_super_call
+  - override_in_extension
+  - pattern_matching_keywords
+  - prefer_nimble
+  - prefer_self_type_over_type_of_self
+  - prefer_zero_over_explicit_init
+  # https://realm.github.io/SwiftLint/prefixed_toplevel_constant.html
+  #- prefixed_toplevel_constant # 定数のプリフィックスに `k` を付けたくないため
+  - private_action
+  - private_outlet
+  - private_subject
+  - prohibited_interface_builder
+  - prohibited_super_call
+  - quick_discouraged_call
+  - quick_discouraged_focused_test
+  - quick_discouraged_pending_test
+  - raw_value_for_camel_cased_codable_enum
+  - reduce_into
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  # https://realm.github.io/SwiftLint/required_deinit.html
+  #- required_deinit # できる限りデイニシャライザを省略したいため
+  - required_enum_case
+  - single_test_class
+  - sorted_first_last
+  - sorted_imports
+  - static_operator
+  - strict_fileprivate
+  - strong_iboutlet
+  - switch_case_on_newline
+  - toggle_bool
+  - trailing_closure
+  - unavailable_function
+  - unneeded_parentheses_in_closure_argument
+  - untyped_error_in_catch
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace_between_cases
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - xct_specific_matcher
+  - yoda_condition
+
+# 対象のファイル・フォルダ
+included:
+  - Tokumemo
+
+# 対象外のファイル・フォルダ
+excluded:
+  - Generated
+  - Resources
+
+identifier_name:
+  min_length:
+    warning: 1 # `r` `g` `b` などを使いたいため
+
+# analyze（静的解析）用ルール
+analyzer_rules:
+  - unused_import # 未使用の import を検出
+  - unused_declaration # 未使用の宣言を検出

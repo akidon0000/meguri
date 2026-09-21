@@ -1,0 +1,60 @@
+# Pull Request の差分に対してのみ swift-format でフォーマットして commit & push を行います。
+name: swift-format-check
+
+on:
+  pull_request:
+
+# スクリプトは、「(-e) エラーが発生したら終了」「(-u) 未定義の変数を使うとエラー」「(-o pipefail) 失敗したコマンドのエラーを検知」する
+defaults:
+  run:
+    shell: bash -euo pipefail {0}
+
+# 連続してpushすると一つ前の実行中のjobが停止される
+# https://docs.github.com/ja/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    runs-on: macos-14
+    steps:
+      - name: Install swift-format
+      # インストールは5秒程度なので、許容
+        run: |
+          brew install swift-format
+          
+      - name: Calculate PR commits + 1 and Record
+      # actions/checkoutのデフォルトは先頭のコミットしか取得しないため
+        id: pre_fetch_depth
+        run: echo "depth=$(( ${{ github.event.pull_request.commits }} + 1 ))" >> "${GITHUB_OUTPUT}"
+        
+      - name: Checkout PR branch and all PR commits
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }} # PR 元のブランチを指定
+          fetch-depth: ${{ steps.pre_fetch_depth.outputs.depth }} # (PR のcommits数 + 1) の コミット履歴を指定
+          
+      - name: Find swift files to format
+        run: |
+          SWIFT_FILES=()
+          while IFS="" read -r file; do SWIFT_FILES+=("${file}"); done < <(git diff --name-only --diff-filter=AMRC ${{ github.event.pull_request.base.sha }} -- "*.swift")
+          if [ "${#SWIFT_FILES[@]}" -eq 0 ]; then
+            echo "No changes to format"
+          else
+            swift-format format --in-place --configuration .swift-format --parallel "${SWIFT_FILES[@]}" || true
+          fi
+          
+      - name: Commit and Push changes
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          if git commit -m "[GitHub Actions] swift-format"; then
+            echo "Changes committed, pushing to repository..."
+            git push origin HEAD:"${HEAD_REF}"
+          else
+            echo "No changes to commit"
+          fi
