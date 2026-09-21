@@ -1,0 +1,90 @@
+import Foundation
+import Observation
+import SwiftData
+import UIKit
+
+@MainActor
+@Observable
+final class AnalyzeViewModel {
+    enum Phase {
+        case idle
+        case perceiving
+        case generating
+        case done(Entry)
+        case failed(String)
+    }
+
+    private(set) var phase: Phase = .idle
+
+    private let perception: any ImagePerceiving
+    private let generator: any InsightGenerating
+    private let location: any LocationProviding
+    private let imageStore: any ImageStoring
+    private let modelContext: ModelContext
+    private let locale: Locale
+
+    init(
+        perception: any ImagePerceiving,
+        generator: any InsightGenerating,
+        location: any LocationProviding,
+        imageStore: any ImageStoring,
+        modelContext: ModelContext,
+        locale: Locale = .current
+    ) {
+        self.perception = perception
+        self.generator = generator
+        self.location = location
+        self.imageStore = imageStore
+        self.modelContext = modelContext
+        self.locale = locale
+    }
+
+    func analyze(_ image: UIImage) async {
+        phase = .perceiving
+        do {
+            async let place = location.currentPlace()
+            let perceived = try await perception.perceive(image)
+            let stored = try imageStore.save(image)
+            let resolvedPlace = await place
+
+            let entry = Entry(
+                imageFileName: stored.fileName,
+                thumbnailData: stored.thumbnailData,
+                placeName: resolvedPlace?.name,
+                latitude: resolvedPlace?.latitude,
+                longitude: resolvedPlace?.longitude,
+                perceivedLabels: perceived.labels,
+                recognizedTexts: perceived.texts)
+            modelContext.insert(entry)
+
+            phase = .generating
+            await fillInsight(of: entry)
+            try modelContext.save()
+            phase = .done(entry)
+        } catch {
+            phase = .failed(error.localizedDescription)
+        }
+    }
+
+    func regenerate(_ entry: Entry) async {
+        phase = .generating
+        await fillInsight(of: entry)
+        try? modelContext.save()
+        phase = .done(entry)
+    }
+
+    private func fillInsight(of entry: Entry) async {
+        if case .unavailable(let reason) = generator.availability {
+            entry.unavailableReason = reason
+            return
+        }
+        let prompt = PromptBuilder.prompt(
+            labels: entry.perceivedLabels, texts: entry.recognizedTexts, placeName: entry.placeName, locale: locale)
+        do {
+            entry.insight = try await generator.generate(prompt: prompt)
+            entry.unavailableReason = nil
+        } catch {
+            entry.unavailableReason = error.localizedDescription
+        }
+    }
+}
