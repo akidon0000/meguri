@@ -1644,11 +1644,7 @@ enum TripDefaultSelection {
 }
 ```
 
-```bash
-xcrun xcodeproj group add Capture --parent /Meguri/Features
-```
-
-（`Capture`グループは既に存在するため、上のコマンドが失敗する場合は `xcrun xcodeproj group ls /Meguri/Features` で確認しそのまま次に進む）
+`Capture`グループは既存の撮影機能（`AnalyzeViewModel.swift`等）が既に入っているため、新規に作成しない。そのままファイルだけ追加する:
 
 ```bash
 xcrun xcodeproj group add-file TripDefaultSelection.swift --group /Meguri/Features/Capture
