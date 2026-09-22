@@ -31,6 +31,7 @@
                 { "path": "AnalyzingView.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "CameraPicker.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "PickedImage.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "TripDefaultSelection.swift", "target-membership": [ "Meguri/compile-sources" ] },
               ],
             }, {
               "kind": "group",
@@ -115,6 +116,7 @@
         { "path": "UnassignedClusteringTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "PlaceGroupingTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "CategoryGroupingTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "TripDefaultSelectionTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
       ],
     }, {
       "kind": "group",
