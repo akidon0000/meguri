@@ -66,7 +66,8 @@ import Testing
     }
 
     @Test func ignoresTheNewEntryItselfWhenFindingTheLastUsedTrip() {
-        let newEntry = makeEntry(daysFromReference: 0)
+        let trip = Trip(name: "自己参照テスト")
+        let newEntry = makeEntry(daysFromReference: 0, trip: trip)
         let suggestion = TripDefaultSelection.suggest(
             for: newEntry, among: [newEntry], now: reference)
         guard case .newTrip = suggestion else {
