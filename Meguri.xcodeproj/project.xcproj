@@ -73,6 +73,12 @@
             { "path": "VisionImagePerception.swift", "target-membership": [ "Meguri/compile-sources" ] },
             { "path": "TaskTimeout.swift", "target-membership": [ "Meguri/compile-sources" ] },
           ],
+        }, {
+          "kind": "group",
+          "path": "Theme",
+          "children": [
+            { "path": "Theme.swift", "target-membership": [ "Meguri/compile-sources" ] },
+          ],
         },
       ],
     }, {
@@ -88,6 +94,7 @@
         { "path": "InsightTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "PromptBuilderTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "TaskTimeoutTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "HexColorTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
       ],
     }, {
       "kind": "group",
