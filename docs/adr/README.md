@@ -30,6 +30,7 @@
 
 | # | タイトル | 領域 | 状態 |
 |---|---|---|---|
-| [0001](0001-xcodegen-without-build-plugins.md) | XcodeGen でプロジェクト管理し、SPM ビルドプラグインは外す | ビルド | **有効** |
+| [0001](0001-xcodegen-without-build-plugins.md) | XcodeGen でプロジェクト管理し、SPM ビルドプラグインは外す | ビルド | **一部置換**（→0004） |
 | [0002](0002-on-device-ai-only.md) | AI 推論は Foundation Models + Vision のみを使う | AI | **有効** |
 | [0003](0003-viewmodel-owned-analysis-task.md) | 解析処理は ViewModel 保持の Task で実行する | 並行処理 | **有効** |
+| [0004](0004-json-project-format-without-xcodegen.md) | XcodeGen をやめ、Xcode 27.2 の JSON プロジェクト形式を直接編集する | ビルド | **有効** |

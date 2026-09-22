@@ -7,14 +7,14 @@
 
 | ドキュメント | 用途 |
 |---|---|
-| [build-and-test.md](build-and-test.md) | プロジェクト生成・ビルド・テストの実行、既知の制限 |
+| [build-and-test.md](build-and-test.md) | ファイル追加・ビルド・テストの実行、既知の制限 |
 | [release.md](release.md) | TestFlight / 審査提出までの手順 |
 
 ## どこが正本か（早見表）
 
 | やること | 正本 |
 |---|---|
-| プロジェクト構成の編集 | `project.yml`（`xcodegen generate` で反映） |
+| プロジェクトへのファイル追加・削除 | `Meguri.xcodeproj`（Xcode GUI か `xcodeproj` CLI で直接編集。[ADR-0004](../adr/0004-json-project-format-without-xcodegen.md)） |
 | 機能の設計 | `docs/superpowers/specs/` |
 | 実装計画 | `docs/superpowers/plans/` |
 | アーキテクチャ判断の記録 | [../adr/README.md](../adr/README.md) |

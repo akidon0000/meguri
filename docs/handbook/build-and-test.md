@@ -1,18 +1,32 @@
 # ビルド・テスト
 
 - 読み手: このリポジトリで作業する自分・エージェント
-- 目的: プロジェクト生成・ビルド・テストの現在の手順の正本（構成の経緯: [ADR-0001](../adr/0001-xcodegen-without-build-plugins.md)）
+- 目的: プロジェクト編集・ビルド・テストの現在の手順の正本（構成の経緯: [ADR-0004](../adr/0004-json-project-format-without-xcodegen.md)）
+- 前提: **Xcode 27.2 以降**。`Meguri.xcodeproj/project.xcproj` は Xcode 27.2 Beta の JSON5 プロジェクト形式で、
+  Xcode 27.1 以前では開けない（`-convert-project` にこの形式が存在しない）
 
-## プロジェクト生成
+## ファイルを追加・削除するとき
 
-`Meguri.xcodeproj` は `project.yml` から [XcodeGen](https://github.com/yonaskolb/XcodeGen) で生成する。
-`project.yml` を変更したら、またはソースファイルを追加・削除したら実行する。
+XcodeGen は使わない。`.xcodeproj` を直接編集する。方法は2つ、どちらでも同じ `project.xcproj` が更新される。
+
+**Xcode の GUI（人が作業するとき）**: 通常どおり Project Navigator にドラッグ&ドロップする。
+
+**`xcodeproj` CLI（エージェントが作業するとき、Xcode 27.2 に同梱）**:
 
 ```bash
-xcodegen generate
+# 1. グループにファイル参照を追加（コンパイルはまだされない）
+xcrun xcodeproj group add-file NewFile.swift --group /Meguri/Services
+
+# 2. ターゲットのビルドフェーズに組み込む（phase 番号は target info で確認）
+xcrun xcodeproj target info --target Meguri   # phase 一覧: 1=sources, 2=resources 等
+xcrun xcodeproj group include NewFile.swift --group /Meguri/Services --target Meguri --phase 1
+
+# 削除するとき
+xcrun xcodeproj group remove-file NewFile.swift --group /Meguri/Services --force
 ```
 
-生成された `.xcodeproj` はコミット対象。
+グループパスは `xcrun xcodeproj group ls /Meguri` 等で確認できる。ターゲット・グループ操作の全体像は
+`xcrun xcodeproj --help` / `xcrun xcodeproj help group <subcommand>`。
 
 ## ビルド・テスト
 

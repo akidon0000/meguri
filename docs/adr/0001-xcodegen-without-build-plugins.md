@@ -2,7 +2,8 @@
 
 - 読み手: このリポジトリで作業する自分・エージェントセッション
 - 目的: `.xcodeproj` の管理方式と、テンプレート同梱の SPM ビルドプラグインを外した理由を記録する
-- 状態: **有効**
+- 状態: **一部置換**（プロジェクト生成方式は [ADR-0004](0004-json-project-format-without-xcodegen.md) で XcodeGen をやめ、
+  Xcode 27.2 の JSON 形式 + `xcodeproj` CLI に置き換えた。SPM ビルドプラグインを使わない判断は継続して有効）
 - 決定日: 2026-09-22
 
 ## 決定
@@ -41,4 +42,4 @@ SPM ビルドツールプラグインは `project.yml` に引き継がず、使�
 ## 参考
 
 - テンプレート側の構成: [ios-project-template](https://github.com/akidon0000/ios-project-template)
-- `project.yml` の実体: [project.yml](https://github.com/akidon0000/meguri/blob/main/project.yml)
+- `project.yml` は [ADR-0004](0004-json-project-format-without-xcodegen.md) で廃止した（旧内容は git 履歴参照）
