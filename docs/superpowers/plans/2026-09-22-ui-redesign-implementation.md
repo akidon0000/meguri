@@ -1409,7 +1409,7 @@ import Testing
         #expect(groups.count == 2)
         #expect(groups.last?.category == nil)
         #expect(groups.last?.entries.count == 1)
-        #expect(groups.last?.displayTitle == "Unclassified")
+        #expect(groups.last?.displayTitle == String(localized: "Unclassified"))
     }
 
     @Test func omitsEmptyCategoriesFromTaxonomy() {
