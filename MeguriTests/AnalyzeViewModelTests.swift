@@ -131,6 +131,20 @@ import UIKit
         #expect(generator.receivedPrompts.first?.contains("castle") == true)
     }
 
+    @Test func regenerateClearsStaleInsightWhenGenerationFails() async throws {
+        let context = try makeContext()
+        let generator = FakeGenerator(result: .failure(FakeError.boom))
+        let entry = Entry(imageFileName: "x.jpg", thumbnailData: Data())
+        entry.insight = sampleInsight
+        context.insert(entry)
+        let viewModel = makeViewModel(context: context, generator: generator)
+
+        await viewModel.regenerate(entry)
+
+        #expect(entry.insight == nil)
+        #expect(entry.unavailableReason?.isEmpty == false)
+    }
+
     @Test func ignoresSecondAnalyzeCall() async throws {
         let context = try makeContext()
         let viewModel = makeViewModel(context: context)

@@ -13,7 +13,8 @@ protocol ImageStoring: Sendable {
 }
 
 enum ImageStoreError: Error {
-    case encodingFailed
+    case photoEncodingFailed
+    case thumbnailEncodingFailed
 }
 
 final class FileImageStore: ImageStoring {
@@ -32,9 +33,12 @@ final class FileImageStore: ImageStoring {
     func save(_ image: UIImage) throws -> StoredImage {
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
 
-        guard let jpeg = image.jpegData(compressionQuality: jpegQuality),
-            let thumbnail = makeThumbnail(of: image).jpegData(compressionQuality: 0.8)
-        else { throw ImageStoreError.encodingFailed }
+        guard let jpeg = image.jpegData(compressionQuality: jpegQuality) else {
+            throw ImageStoreError.photoEncodingFailed
+        }
+        guard let thumbnail = makeThumbnail(of: image).jpegData(compressionQuality: 0.8) else {
+            throw ImageStoreError.thumbnailEncodingFailed
+        }
 
         let fileName = UUID().uuidString + ".jpg"
         try jpeg.write(to: directory.appendingPathComponent(fileName), options: .atomic)

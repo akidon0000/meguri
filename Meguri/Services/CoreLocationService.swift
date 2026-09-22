@@ -12,6 +12,7 @@ protocol LocationProviding: Sendable {
 }
 
 final class CoreLocationService: LocationProviding {
+    @MainActor private let manager = CLLocationManager()
     private let timeout: Duration
     private let geocodeTimeout: Duration
 
@@ -21,21 +22,11 @@ final class CoreLocationService: LocationProviding {
     }
 
     func currentPlace() async -> Place? {
-        await withTaskGroup(of: Place?.self) { group in
-            group.addTask { await self.resolve() }
-            group.addTask { [timeout] in
-                try? await Task.sleep(for: timeout)
-                return nil
-            }
-            let first = await group.next().flatMap { $0 }
-            group.cancelAll()
-            return first
-        }
+        await withTimeout(timeout) { await self.resolve() }
     }
 
     private func resolve() async -> Place? {
         await MainActor.run {
-            let manager = CLLocationManager()
             if manager.authorizationStatus == .notDetermined {
                 manager.requestWhenInUseAuthorization()
             }
@@ -48,7 +39,9 @@ final class CoreLocationService: LocationProviding {
                         name: nil,
                         latitude: location.coordinate.latitude,
                         longitude: location.coordinate.longitude)
-                    place.name = await Self.placeName(for: location, timeout: geocodeTimeout)
+                    place.name = await withTimeout(geocodeTimeout) {
+                        await Self.placeName(for: location)
+                    }
                     return place
                 }
                 if update.authorizationDenied || update.authorizationDeniedGlobally
@@ -63,19 +56,10 @@ final class CoreLocationService: LocationProviding {
         return nil
     }
 
-    // Bounded separately so a slow geocoder cannot cost the coordinates we already have.
-    private static func placeName(for location: CLLocation, timeout: Duration) async -> String? {
-        let placemark = await withTaskGroup(of: CLPlacemark?.self) { group in
-            group.addTask { try? await CLGeocoder().reverseGeocodeLocation(location).first }
-            group.addTask {
-                try? await Task.sleep(for: timeout)
-                return nil
-            }
-            let first = await group.next().flatMap { $0 }
-            group.cancelAll()
-            return first
+    private static func placeName(for location: CLLocation) async -> String? {
+        guard let placemark = try? await CLGeocoder().reverseGeocodeLocation(location).first else {
+            return nil
         }
-        guard let placemark else { return nil }
         let candidates = [
             placemark.name, placemark.locality, placemark.administrativeArea, placemark.country
         ]

@@ -55,6 +55,8 @@ struct EntryDetailView: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        // The insight card below already conveys the subject in words; the photo is decorative for VoiceOver.
+        .accessibilityHidden(true)
     }
 
     private func insightCard(_ insight: Insight) -> some View {

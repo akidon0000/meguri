@@ -51,8 +51,10 @@ final class AnalyzeViewModel {
         phase = .perceiving
         do {
             async let place = location.currentPlace()
-            let perceived = try await perception.perceive(image)
+            async let perceivedResult = perception.perceive(image)
+            // Synchronous JPEG encode runs here, overlapping the awaits above rather than after them.
             let stored = try imageStore.save(image)
+            let perceived = try await perceivedResult
             let resolvedPlace = await place
 
             let entry = Entry(
@@ -83,11 +85,20 @@ final class AnalyzeViewModel {
     func regenerate(_ entry: Entry) async {
         phase = .generating
         await fillInsight(of: entry)
-        try? modelContext.save()
-        phase = .done(entry)
+        do {
+            try modelContext.save()
+            phase = .done(entry)
+        } catch {
+            // Unlike analyze(), there is no new entry/image to roll back here — the entry
+            // already existed before this call. Only the save itself failed.
+            phase = .failed(error.localizedDescription)
+        }
     }
 
     private func fillInsight(of entry: Entry) async {
+        // Clear any previous result up front so a failed retry can never leave a stale
+        // insight on screen looking current.
+        entry.insight = nil
         if case .unavailable(let reason) = generator.availability {
             entry.unavailableReason = reason
             return

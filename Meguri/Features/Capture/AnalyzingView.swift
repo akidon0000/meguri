@@ -51,6 +51,7 @@ struct AnalyzingView: View {
                 .frame(maxHeight: 320)
                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding(.horizontal)
+                .accessibilityHidden(true)
             ProgressView()
                 .controlSize(.large)
             Text(title)

@@ -19,17 +19,16 @@ struct EntryCard: View {
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
         }
+        .accessibilityElement(children: .combine)
     }
 
     @ViewBuilder
     private var thumbnail: some View {
         if let image = UIImage(data: entry.thumbnailData) {
-            Color.clear.overlay {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-            }
-            .clipped()
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                .accessibilityHidden(true)
         } else {
             Color.secondary.opacity(0.2)
         }

@@ -71,6 +71,7 @@
             { "path": "FoundationModelsInsightGenerator.swift", "target-membership": [ "Meguri/compile-sources" ] },
             { "path": "PromptBuilder.swift", "target-membership": [ "Meguri/compile-sources" ] },
             { "path": "VisionImagePerception.swift", "target-membership": [ "Meguri/compile-sources" ] },
+            { "path": "TaskTimeout.swift", "target-membership": [ "Meguri/compile-sources" ] },
           ],
         },
       ],
@@ -86,6 +87,7 @@
         { "path": "FileImageStoreTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "InsightTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "PromptBuilderTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "TaskTimeoutTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
       ],
     }, {
       "kind": "group",
