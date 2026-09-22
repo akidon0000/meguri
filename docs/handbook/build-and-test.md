@@ -68,3 +68,15 @@ Xcode 27 beta で、`@Test @MainActor` な関数の中で `ModelContainer.mainCo
 ```
 
 `MeguriTests/EntryTests.swift` ・ `MeguriTests/AnalyzeViewModelTests.swift` が実例。
+
+### CI にビルド・テストが無い
+
+`.github/workflows/` には SwiftLint（Danger）と swift-format の PR チェックしかなく、
+`xcodebuild build` / `test` を走らせる CI ワークフローは存在しない。GitHub Actions の macOS
+ランナーイメージ（`actions/runner-images` の `xcode-27-arm64`）が 2026-09-22 時点で Xcode 27.0 までしか
+収録しておらず、本リポジトリが前提とする Xcode 27.2 Beta が無いため、今は追加もできない
+（[ADR-0004](../adr/0004-json-project-format-without-xcodegen.md) 参照）。
+
+push・PR の前に、このページの「ビルド・テスト」節のコマンドをローカルで必ず実行すること。
+ランナーイメージが Xcode 27.2 を収録したら、`runs-on: xcode-27-arm64`（または該当ラベル）で
+build/test ワークフローを追加できないか再検討する。

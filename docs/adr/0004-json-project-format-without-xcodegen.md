@@ -45,6 +45,11 @@
 - この変更は Meguri 単体の判断。[ios-project-template](https://github.com/akidon0000/ios-project-template)
   や `XprojGen` は XcodeGen を使い続けており、新規アプリは引き続き `.pbxproj` で生成される
   （テンプレート側への展開は別途判断する）
+- **CI でのビルド・テストが組めない**: GitHub Actions の macOS ランナーイメージ（`actions/runner-images`
+  の `xcode-27-arm64`）は 2026-09-22 時点で Xcode 27.0 のみを収録しており、27.2 Beta は未収録。
+  そもそも本リポジトリには build/test を行う CI ワークフローが無く（lint・format のみ）、
+  この制約により当面追加もできない。ビルド・テストはローカルで確認してから push する運用が前提になる
+  （[handbook/build-and-test.md](../handbook/build-and-test.md) 参照）
 
 ## 再評価のタイミング
 
