@@ -11,6 +11,26 @@
         }
       }
     },
+    "Add to \"%@\"": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%@」に追加"
+          }
+        }
+      }
+    },
+    "Add to a trip": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅に追加"
+          }
+        }
+      }
+    },
     "Apple Intelligence is not available right now.": {
       "localizations": {
         "ja": {
@@ -81,6 +101,26 @@
         }
       }
     },
+    "Create": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作成"
+          }
+        }
+      }
+    },
+    "Create a different trip": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "別の旅を作る"
+          }
+        }
+      }
+    },
     "Creature": {
       "localizations": {
         "ja": {
@@ -107,6 +147,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "この記録を削除しますか？"
+          }
+        }
+      }
+    },
+    "Don't add to a trip": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅に追加しない"
           }
         }
       }
@@ -144,6 +194,16 @@
         }
       }
     },
+    "New trip name": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅の名前"
+          }
+        }
+      }
+    },
     "No explanation yet": {
       "localizations": {
         "ja": {
@@ -164,6 +224,16 @@
         }
       }
     },
+    "Other trips": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "他の旅"
+          }
+        }
+      }
+    },
     "Point at a painting, a building, or a view. Meguri explains what it is and keeps it here.": {
       "localizations": {
         "ja": {
@@ -180,6 +250,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "彫刻"
+          }
+        }
+      }
+    },
+    "Start a new trip: \"%@\"": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しい旅にする：「%@」"
           }
         }
       }
