@@ -157,6 +157,11 @@ struct EntryDetailView: View {
             ForEach(trips) { trip in
                 Button(trip.name) { assignTrip(trip) }
             }
+            Button(String(localized: "Create a new trip")) {
+                let trip = Trip(name: TripNaming.suggestedName(for: [entry], locale: .current))
+                modelContext.insert(trip)
+                assignTrip(trip)
+            }
         } label: {
             Label(entry.trip?.name ?? String(localized: "No trip"), systemImage: "case.fill")
         }

@@ -151,6 +151,16 @@
         }
       }
     },
+    "Create a new trip": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しい旅を作る"
+          }
+        }
+      }
+    },
     "Creature": {
       "localizations": {
         "ja": {
@@ -181,16 +191,6 @@
         }
       }
     },
-    "Home": {
-      "localizations": {
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ホーム"
-          }
-        }
-      }
-    },
     "Don't add to a trip": {
       "localizations": {
         "ja": {
@@ -217,6 +217,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "調べています…"
+          }
+        }
+      }
+    },
+    "Home": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ホーム"
           }
         }
       }
@@ -350,6 +360,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "旅の名前を変更"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存"
           }
         }
       }

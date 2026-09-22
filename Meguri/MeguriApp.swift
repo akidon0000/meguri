@@ -14,6 +14,7 @@ struct MeguriApp: App {
                     }
             }
             .tint(Color.meguriSage)
+            .preferredColorScheme(.light)
         }
         .modelContainer(for: [Entry.self, Trip.self])
     }

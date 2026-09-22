@@ -53,7 +53,7 @@ struct EntryGroupListView: View {
         }
         .alert(String(localized: "Rename trip"), isPresented: renamingBinding) {
             TextField(String(localized: "New trip name"), text: $renameText)
-            Button(String(localized: "Create")) {
+            Button(String(localized: "Save")) {
                 if let tripID = renamingSection?.tripID {
                     onRenameTrip?(tripID, renameText)
                 }
