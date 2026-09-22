@@ -1189,6 +1189,8 @@ xcrun xcodeproj group add-file TripNaming.swift --group /Meguri/Features/Compend
 xcrun xcodeproj group include TripNaming.swift --group /Meguri/Features/Compendium --target Meguri --phase 1
 xcrun xcodeproj group add-file UnassignedClustering.swift --group /Meguri/Features/Compendium
 xcrun xcodeproj group include UnassignedClustering.swift --group /Meguri/Features/Compendium --target Meguri --phase 1
+xcrun xcodeproj group add-file UnassignedClusteringTests.swift --group /MeguriTests
+xcrun xcodeproj group include UnassignedClusteringTests.swift --group /MeguriTests --target MeguriTests --phase 1
 ```
 
 - [ ] **Step 4: テストが通ることを確認する**
