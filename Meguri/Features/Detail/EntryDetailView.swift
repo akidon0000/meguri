@@ -147,8 +147,11 @@ struct EntryDetailView: View {
     private func categoryLabel(_ category: Insight.Category) -> String {
         switch category {
         case .artwork: String(localized: "Artwork")
-        case .landscape: String(localized: "Landscape")
+        case .sculpture: String(localized: "Sculpture")
         case .architecture: String(localized: "Architecture")
+        case .nature: String(localized: "Nature")
+        case .creature: String(localized: "Creature")
+        case .streetscape: String(localized: "Streetscape")
         case .other: String(localized: "Other")
         }
     }

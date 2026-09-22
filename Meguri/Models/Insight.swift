@@ -5,7 +5,12 @@ import FoundationModels
 struct Insight: Codable, Sendable, Equatable {
     @Generable
     enum Category: String, Codable, CaseIterable, Sendable {
-        case artwork, landscape, architecture, other
+        case artwork, sculpture, architecture, nature, creature, streetscape, other
+
+        init(from decoder: Decoder) throws {
+            let raw = try decoder.singleValueContainer().decode(String.self)
+            self = Category(rawValue: raw) ?? .other
+        }
     }
 
     @Guide(
@@ -28,6 +33,8 @@ struct Insight: Codable, Sendable, Equatable {
     @Guide(description: "Interesting facts. At most three.", .maximumCount(3))
     var funFacts: [String]
 
-    @Guide(description: "One of: artwork, landscape, architecture, other.")
+    @Guide(
+        description:
+            "One of: artwork, sculpture, architecture, nature, creature, streetscape, other.")
     var category: Category
 }
