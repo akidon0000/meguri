@@ -24,7 +24,7 @@ struct CollectionView: View {
                     grid
                 }
             }
-            .navigationTitle("Meguri")
+            .navigationTitle("Megumemo")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     addMenu

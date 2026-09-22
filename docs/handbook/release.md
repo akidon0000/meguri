@@ -15,22 +15,30 @@ fastlane は使わず [asc](https://asccli.sh/)（App Store Connect CLI）を使
 |---|---|
 | Bundle ID | `com.akidon0000.meguri` |
 | Team ID | `XSC9AJPSP3` |
-| App Store Connect App ID | 未作成（`asc web apps create` か Web UI でアプリレコードを作ってから控える） |
+| App Store Connect App ID | `6814714502` |
 
 ## 手順
 
-### 0. アプリレコード作成（ユーザーが自分で行う）
+### 0. アプリレコード作成（ユーザーが自分で行う・完了済み）
 
 `asc web apps create` は ASC API キーではなく Apple ID の Web セッション認証（パスワード・2FA）が要る。
 エージェントはパスワードを扱えないため、**この 1 回だけはユーザーが自分のターミナルで実行する**：
 
 ```bash
 asc web apps create --name "Meguri" --bundle-id "com.akidon0000.meguri" \
-  --sku "meguri-ios" --primary-locale "ja-JP"
+  --sku "meguri-ios" --primary-locale "ja"
 ```
 
-Apple ID・2FA はプロンプトで安全に入力される（コマンド引数には含めない）。実行後に表示される
-数値の App ID を控えて、以降の手順の `<APP_ID>` に使う。
+Apple ID・2FA はプロンプトで安全に入力される（コマンド引数には含めない）。primary-locale は
+リージョン無しの `ja`（`ja-JP` は `ENTITY_ERROR.ATTRIBUTE.INVALID` で失敗する）。
+
+2026-09-22 に実行済み。App Store 上で "Meguri" という名前が既に使われていたため
+`--auto-rename`（既定 true）が働き、App 名は `Meguri - meguri` になった。
+`asc apps rename --app 6814714502 --locale "ja" --name "Megumemo"` で正式名称
+「Megumemo」に変更済み（[Info.plist](../../Meguri/Info.plist) の `CFBundleDisplayName` と
+[CollectionView.swift](../../Meguri/Features/Collection/CollectionView.swift) の
+`navigationTitle` も揃えた）。Xcode プロジェクト名・Bundle ID・Swift モジュール名は
+`Meguri` のまま変えていない。
 
 ### 1. ビルド・アップロード・審査提出（エージェントが自動で進めてよい）
 
