@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 110;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -208,11 +208,7 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = Meguri;
-			packageProductDependencies = (
-			);
 			productName = Meguri;
 			productReference = C1A15230EE9D26AEA53827A9 /* Meguri.app */;
 			productType = "com.apple.product-type.application";
@@ -229,8 +225,6 @@
 				A79149CC94FFD2165ECFA528 /* PBXTargetDependency */,
 			);
 			name = MeguriTests;
-			packageProductDependencies = (
-			);
 			productName = MeguriTests;
 			productReference = E9DECC39AFC535EE59050FCC /* MeguriTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -255,7 +249,6 @@
 				};
 			};
 			buildConfigurationList = B1328B4E8E15E9E95D22C8B6 /* Build configuration list for PBXProject "Meguri" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -265,7 +258,7 @@
 			);
 			mainGroup = A18C342CE34BC14328756B70;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 110;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -278,20 +271,17 @@
 /* Begin PBXResourcesBuildPhase section */
 		19FF7A6D1FB2E9DD1160826E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				BD4BE24139B11BDDDC21EF31 /* Assets.xcassets in Resources */,
 				F003F899A0A6CFBB79DD36D5 /* InfoPlist.xcstrings in Resources */,
 				65BEA07BA509A9409A85BB21 /* Localizable.xcstrings in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		81B449C3E1552F2A77B8844A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				993D21307070C3C462C2D87A /* AnalyzeViewModel.swift in Sources */,
 				0D752674AB3A2E4D64E80ED2 /* AnalyzingView.swift in Sources */,
@@ -310,11 +300,9 @@
 				B364F9F4435A63A2B46A39B9 /* PromptBuilder.swift in Sources */,
 				4D35BB9F4E7BFF0804855829 /* VisionImagePerception.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		992566D83F2E02D9C5628185 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				9E83494B121B34BA17DC5347 /* AnalyzeViewModelTests.swift in Sources */,
 				A47C5DADA723DE50A78D690A /* EntryTests.swift in Sources */,
@@ -325,7 +313,6 @@
 				7D83F27F23A74168D49053AF /* InsightTests.swift in Sources */,
 				AA110CE95F0B66F03B212A06 /* PromptBuilderTests.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -338,7 +325,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0662045B2BEE2EA5CA6EB8C7 /* Debug */ = {
+		0662045B2BEE2EA5CA6EB8C7 /* Debug configuration for PBXProject "Meguri" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -406,7 +393,7 @@
 			};
 			name = Debug;
 		};
-		480CF1EE4921B4058B3DC441 /* Release */ = {
+		480CF1EE4921B4058B3DC441 /* Release configuration for PBXProject "Meguri" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -467,7 +454,7 @@
 			};
 			name = Release;
 		};
-		7490EB8BC37CAFB7675D085A /* Release */ = {
+		7490EB8BC37CAFB7675D085A /* Release configuration for PBXNativeTarget "Meguri" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -485,7 +472,7 @@
 			};
 			name = Release;
 		};
-		9250EC2D7039C71B454C391F /* Release */ = {
+		9250EC2D7039C71B454C391F /* Release configuration for PBXNativeTarget "MeguriTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -502,7 +489,7 @@
 			};
 			name = Release;
 		};
-		E7F54D1C01BE761C5EB07CAB /* Debug */ = {
+		E7F54D1C01BE761C5EB07CAB /* Debug configuration for PBXNativeTarget "MeguriTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -519,7 +506,7 @@
 			};
 			name = Debug;
 		};
-		FE52929A30098E6117C3B15E /* Debug */ = {
+		FE52929A30098E6117C3B15E /* Debug configuration for PBXNativeTarget "Meguri" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -543,28 +530,25 @@
 		6A6FB7AEFCA6EA5B68A92C46 /* Build configuration list for PBXNativeTarget "Meguri" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FE52929A30098E6117C3B15E /* Debug */,
-				7490EB8BC37CAFB7675D085A /* Release */,
+				FE52929A30098E6117C3B15E /* Debug configuration for PBXNativeTarget "Meguri" */,
+				7490EB8BC37CAFB7675D085A /* Release configuration for PBXNativeTarget "Meguri" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 		B1328B4E8E15E9E95D22C8B6 /* Build configuration list for PBXProject "Meguri" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0662045B2BEE2EA5CA6EB8C7 /* Debug */,
-				480CF1EE4921B4058B3DC441 /* Release */,
+				0662045B2BEE2EA5CA6EB8C7 /* Debug configuration for PBXProject "Meguri" */,
+				480CF1EE4921B4058B3DC441 /* Release configuration for PBXProject "Meguri" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 		B78351CDCFEF35B97FB02C46 /* Build configuration list for PBXNativeTarget "MeguriTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E7F54D1C01BE761C5EB07CAB /* Debug */,
-				9250EC2D7039C71B454C391F /* Release */,
+				E7F54D1C01BE761C5EB07CAB /* Debug configuration for PBXNativeTarget "MeguriTests" */,
+				9250EC2D7039C71B454C391F /* Release configuration for PBXNativeTarget "MeguriTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */

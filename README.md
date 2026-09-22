@@ -15,11 +15,13 @@ xcodegen generate
 xcodebuild test -project Meguri.xcodeproj -scheme Meguri -destination 'platform=iOS Simulator,name=iPhone 18 Pro'
 ```
 
-設計: [docs/superpowers/specs/](docs/superpowers/specs/)、実装計画: [docs/superpowers/plans/](docs/superpowers/plans/)
+詳細は [docs/](docs/README.md)（[handbook/build-and-test.md](docs/handbook/build-and-test.md) にシミュレータの既知の制限あり）。
+設計: [docs/superpowers/specs/](docs/superpowers/specs/)、実装計画: [docs/superpowers/plans/](docs/superpowers/plans/)、
+アーキテクチャ判断: [docs/adr/](docs/adr/README.md)
 
 ## TestFlight
 
-[asc](https://asccli.sh/)（App Store Connect CLI）で配信する。
+[asc](https://asccli.sh/)（App Store Connect CLI）で配信する。手順は [docs/handbook/release.md](docs/handbook/release.md)。
 
 ```bash
 asc auth login --name akidon0000 --key-id KEY_ID --issuer-id ISSUER_ID --private-key ~/.appstoreconnect/private_keys/AuthKey_KEY_ID.p8
