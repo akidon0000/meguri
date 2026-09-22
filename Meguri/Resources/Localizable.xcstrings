@@ -181,6 +181,16 @@
         }
       }
     },
+    "Home": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ホーム"
+          }
+        }
+      }
+    },
     "Don't add to a trip": {
       "localizations": {
         "ja": {
