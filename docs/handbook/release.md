@@ -19,6 +19,21 @@ fastlane は使わず [asc](https://asccli.sh/)（App Store Connect CLI）を使
 
 ## 手順
 
+### 0. アプリレコード作成（ユーザーが自分で行う）
+
+`asc web apps create` は ASC API キーではなく Apple ID の Web セッション認証（パスワード・2FA）が要る。
+エージェントはパスワードを扱えないため、**この 1 回だけはユーザーが自分のターミナルで実行する**：
+
+```bash
+asc web apps create --name "Meguri" --bundle-id "com.akidon0000.meguri" \
+  --sku "meguri-ios" --primary-locale "ja-JP"
+```
+
+Apple ID・2FA はプロンプトで安全に入力される（コマンド引数には含めない）。実行後に表示される
+数値の App ID を控えて、以降の手順の `<APP_ID>` に使う。
+
+### 1. ビルド・アップロード・審査提出（エージェントが自動で進めてよい）
+
 asc の認証は済んでいる前提（`asc auth status` で確認。していなければ hq の handbook 参照）。
 
 ```bash
