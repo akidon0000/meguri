@@ -274,6 +274,22 @@
         }
       }
     },
+    "Unclassified": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unclassified"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未分類"
+          }
+        }
+      }
+    },
     "Unknown place": {
       "localizations": {
         "ja": {
