@@ -6,6 +6,9 @@ build/
 .swiftpm/
 .vscode
 
+## asc signing fetch output (certificates + provisioning profiles)
+signing/
+
 ## Generated file
 R.generated.swift
 

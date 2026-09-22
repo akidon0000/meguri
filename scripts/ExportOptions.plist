@@ -9,7 +9,14 @@
 	<key>teamID</key>
 	<string>XSC9AJPSP3</string>
 	<key>signingStyle</key>
-	<string>automatic</string>
+	<string>manual</string>
+	<key>signingCertificate</key>
+	<string>Apple Distribution</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.akidon0000.meguri</key>
+		<string>IOS_APP_STORE-20260922</string>
+	</dict>
 	<key>uploadSymbols</key>
 	<true/>
 	<key>manageAppVersionAndBuildNumber</key>
