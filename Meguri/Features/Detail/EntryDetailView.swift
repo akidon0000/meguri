@@ -6,6 +6,7 @@ struct EntryDetailView: View {
     @Environment(\.dependencies) private var dependencies
     @Environment(\.dismiss) private var dismiss
     @Bindable var entry: Entry
+    @Query(sort: \Trip.name) private var trips: [Trip]
 
     @State private var isRegenerating = false
     @State private var confirmsDelete = false
@@ -144,9 +145,26 @@ struct EntryDetailView: View {
                 )
                 .lineLimit(3)
             }
+            tripMenu
         }
         .font(.footnote)
         .foregroundStyle(.secondary)
+    }
+
+    private var tripMenu: some View {
+        Menu {
+            Button(String(localized: "No trip")) { assignTrip(nil) }
+            ForEach(trips) { trip in
+                Button(trip.name) { assignTrip(trip) }
+            }
+        } label: {
+            Label(entry.trip?.name ?? String(localized: "No trip"), systemImage: "case.fill")
+        }
+    }
+
+    private func assignTrip(_ trip: Trip?) {
+        entry.trip = trip
+        try? modelContext.save()
     }
 
     private func regenerate() async {
