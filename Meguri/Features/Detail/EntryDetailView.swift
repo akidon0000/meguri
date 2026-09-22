@@ -26,6 +26,7 @@ struct EntryDetailView: View {
         }
         .navigationTitle(entry.insight?.title ?? String(localized: "Untitled"))
         .navigationBarTitleDisplayMode(.inline)
+        .background(Color.meguriBackground)
         .toolbar {
             ToolbarItem(placement: .secondaryAction) {
                 Button(role: .destructive) {
@@ -65,17 +66,19 @@ struct EntryDetailView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(insight.title)
                 .font(.title2.weight(.bold))
+                .foregroundStyle(Color.meguriInk)
 
             let byline = [insight.creator, insight.era].filter { !$0.isEmpty }.joined(
                 separator: " · ")
             if !byline.isEmpty {
                 Text(byline)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.meguriSecondaryText)
             }
 
             Text(insight.summary)
                 .font(.body)
+                .foregroundStyle(Color.meguriInk)
 
             if !insight.funFacts.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
@@ -87,16 +90,15 @@ struct EntryDetailView: View {
                 .padding(.top, 4)
             }
 
-            Text(categoryLabel(insight.category))
-                .font(.caption.weight(.medium))
-                .padding(.horizontal, 10)
-                .padding(.vertical, 4)
-                .background(.tint.opacity(0.15), in: Capsule())
+            CategoryBadge(category: insight.category)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(
-            .background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(Color.meguriSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.meguriBorder, lineWidth: 1)
+        )
     }
 
     private var unavailableCard: some View {
@@ -123,8 +125,11 @@ struct EntryDetailView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(
-            .background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(Color.meguriSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.meguriBorder, lineWidth: 1)
+        )
     }
 
     private var metadata: some View {
@@ -142,18 +147,6 @@ struct EntryDetailView: View {
         }
         .font(.footnote)
         .foregroundStyle(.secondary)
-    }
-
-    private func categoryLabel(_ category: Insight.Category) -> String {
-        switch category {
-        case .artwork: String(localized: "Artwork")
-        case .sculpture: String(localized: "Sculpture")
-        case .architecture: String(localized: "Architecture")
-        case .nature: String(localized: "Nature")
-        case .creature: String(localized: "Creature")
-        case .streetscape: String(localized: "Streetscape")
-        case .other: String(localized: "Other")
-        }
     }
 
     private func regenerate() async {
