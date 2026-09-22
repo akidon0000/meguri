@@ -33,12 +33,14 @@ if [[ -z "$PROJECT" ]]; then
   exit 1
 fi
 SCHEME="${PROJECT%.xcodeproj}"
+VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$SCHEME/Info.plist")
 
 exec asc publish testflight \
   --app "$APP_ID" \
   --project "$PROJECT" \
   --scheme "$SCHEME" \
   --configuration Release \
+  --version "$VERSION" \
   --export-options scripts/ExportOptions.plist \
   --archive-path "build/$SCHEME.xcarchive" \
   --ipa-path "build/$SCHEME.ipa" \
