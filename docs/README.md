@@ -10,6 +10,7 @@
 | [adr/](adr/README.md) | 意思決定記録（なぜこの構成なのか） |
 | [handbook/](handbook/README.md) | 現在の正本・運用手順（どう使う・どう変えるか） |
 | [roadmap.md](roadmap.md) | 今後の機能候補と論点（まだ着手していないもの） |
+| [market-research.md](market-research.md) | 競合とターゲット像（roadmap の優先度判断の根拠） |
 | [superpowers/specs/](superpowers/specs/) | 機能ごとの設計仕様（brainstorming の成果物） |
 | [superpowers/plans/](superpowers/plans/) | 実装計画（writing-plans の成果物） |
 
