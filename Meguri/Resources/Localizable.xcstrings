@@ -171,6 +171,16 @@
         }
       }
     },
+    "Entries with a location will show up here as pins.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "位置情報を持つエントリがここにピンで表示されます。"
+          }
+        }
+      }
+    },
     "Finding out what it is…": {
       "localizations": {
         "ja": {
@@ -220,6 +230,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "まだ説明がありません"
+          }
+        }
+      }
+    },
+    "No located entries": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "位置情報付きのエントリがありません"
           }
         }
       }
