@@ -6,7 +6,7 @@ struct EntryCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             thumbnail
-                .aspectRatio(1, contentMode: .fill)
+                .aspectRatio(1, contentMode: .fit)
                 .frame(maxWidth: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 
