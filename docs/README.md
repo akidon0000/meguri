@@ -9,6 +9,7 @@
 |---|---|
 | [adr/](adr/README.md) | 意思決定記録（なぜこの構成なのか） |
 | [handbook/](handbook/README.md) | 現在の正本・運用手順（どう使う・どう変えるか） |
+| [roadmap.md](roadmap.md) | 今後の機能候補と論点（まだ着手していないもの） |
 | [superpowers/specs/](superpowers/specs/) | 機能ごとの設計仕様（brainstorming の成果物） |
 | [superpowers/plans/](superpowers/plans/) | 実装計画（writing-plans の成果物） |
 
@@ -26,6 +27,7 @@
 |---|---|
 | `docs/adr/` | このアプリ固有のアーキテクチャ判断と理由。覆すときは新番号で起票 |
 | `docs/handbook/` | 現在のビルド・テスト・リリース手順（変わったら同じページを更新） |
+| `docs/roadmap.md` | まだ着手していない機能候補と論点。着手したら該当項目を spec/plan に昇華させる |
 | `docs/superpowers/specs/` `docs/superpowers/plans/` | 機能単位の設計・実装計画（superpowers の brainstorming / writing-plans） |
 
 エージェント環境（skills・MCP・iOS 配信ツールの選定など複数リポジトリ共通の話）は
