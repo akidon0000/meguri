@@ -11,6 +11,7 @@ struct CollectionView: View {
     @State private var showsCamera = false
     @State private var showsLibrary = false
     @State private var imageToAnalyze: PickedImage?
+    @State private var showsLoadError = false
 
     private let columns = [GridItem(.adaptive(minimum: 150), spacing: 12)]
 
@@ -56,9 +57,14 @@ struct CollectionView: View {
                     let image = UIImage(data: data)
                 {
                     imageToAnalyze = PickedImage(image: image)
+                } else {
+                    showsLoadError = true
                 }
                 pickedItem = nil
             }
+        }
+        .alert("Couldn't load this photo", isPresented: $showsLoadError) {
+            Button("OK", role: .cancel) {}
         }
     }
 

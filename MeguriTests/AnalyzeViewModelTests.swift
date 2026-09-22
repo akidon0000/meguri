@@ -145,6 +145,36 @@ import UIKit
         #expect(entry.unavailableReason?.isEmpty == false)
     }
 
+    @Test func regenerateIgnoresConcurrentCall() async throws {
+        let context = try makeContext()
+        let generator = FakeGenerator(result: .success(sampleInsight), delay: .milliseconds(50))
+        let entry = Entry(imageFileName: "x.jpg", thumbnailData: Data())
+        context.insert(entry)
+        let viewModel = makeViewModel(context: context, generator: generator)
+
+        let first = Task { await viewModel.regenerate(entry) }
+        try await Task.sleep(for: .milliseconds(10))
+        await viewModel.regenerate(entry)
+        await first.value
+
+        #expect(generator.receivedPrompts.count == 1)
+    }
+
+    @Test func analyzeDoesNotInsertEntryUntilInsightIsResolved() async throws {
+        let context = try makeContext()
+        let generator = FakeGenerator(result: .success(sampleInsight), delay: .milliseconds(50))
+        let viewModel = makeViewModel(context: context, generator: generator)
+
+        let task = Task { await viewModel.analyze(makeImage()) }
+        try await Task.sleep(for: .milliseconds(10))
+        if case .generating = viewModel.phase {
+            #expect(try context.fetch(FetchDescriptor<Entry>()).isEmpty)
+        }
+        await task.value
+
+        #expect(try context.fetch(FetchDescriptor<Entry>()).count == 1)
+    }
+
     @Test func ignoresSecondAnalyzeCall() async throws {
         let context = try makeContext()
         let viewModel = makeViewModel(context: context)

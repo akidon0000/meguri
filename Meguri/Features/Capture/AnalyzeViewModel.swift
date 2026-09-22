@@ -65,10 +65,13 @@ final class AnalyzeViewModel {
                 longitude: resolvedPlace?.longitude,
                 perceivedLabels: perceived.labels,
                 recognizedTexts: perceived.texts)
-            modelContext.insert(entry)
 
             phase = .generating
+            // Fill the insight before the entry enters the context: @Query in CollectionView
+            // reacts to inserts immediately, so inserting first would show a half-built entry
+            // (no insight yet) in the grid if the user closes the analyzing screen early.
             await fillInsight(of: entry)
+            modelContext.insert(entry)
             do {
                 try modelContext.save()
             } catch {
@@ -83,6 +86,7 @@ final class AnalyzeViewModel {
     }
 
     func regenerate(_ entry: Entry) async {
+        guard case .idle = phase else { return }
         phase = .generating
         await fillInsight(of: entry)
         do {

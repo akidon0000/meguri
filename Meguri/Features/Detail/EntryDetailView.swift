@@ -9,6 +9,7 @@ struct EntryDetailView: View {
 
     @State private var isRegenerating = false
     @State private var confirmsDelete = false
+    @State private var loadedImage: UIImage?
 
     var body: some View {
         ScrollView {
@@ -39,13 +40,14 @@ struct EntryDetailView: View {
         ) {
             Button("Delete", role: .destructive, action: delete)
         }
+        .task(id: entry.imageFileName) {
+            loadedImage = dependencies.imageStore.load(fileName: entry.imageFileName)
+        }
     }
 
     private var photo: some View {
         Group {
-            if let image = dependencies.imageStore.load(fileName: entry.imageFileName)
-                ?? UIImage(data: entry.thumbnailData)
-            {
+            if let image = loadedImage ?? UIImage(data: entry.thumbnailData) {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
