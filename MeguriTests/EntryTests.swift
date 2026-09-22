@@ -7,7 +7,7 @@ import Testing
 @Suite struct EntryTests {
     private func makeContext() throws -> ModelContext {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Entry.self, configurations: config)
+        let container = try ModelContainer(for: Entry.self, Trip.self, configurations: config)
         return ModelContext(container)
     }
 
@@ -46,5 +46,23 @@ import Testing
 
         let fetched = try context.fetch(Entry.newestFirst)
         #expect(fetched.map(\.imageFileName) == ["new.jpg", "old.jpg"])
+    }
+
+    @Test func persistsTripRelationship() throws {
+        let context = try makeContext()
+        let trip = Trip(name: "パリ旅行")
+        let entry = Entry(imageFileName: "a.jpg", thumbnailData: Data([1, 2, 3]))
+        entry.trip = trip
+        context.insert(trip)
+        context.insert(entry)
+        try context.save()
+
+        let fetched = try context.fetch(FetchDescriptor<Entry>())
+        #expect(fetched.first?.trip?.name == "パリ旅行")
+    }
+
+    @Test func tripIsNilByDefault() throws {
+        let entry = Entry(imageFileName: "b.jpg", thumbnailData: Data())
+        #expect(entry.trip == nil)
     }
 }

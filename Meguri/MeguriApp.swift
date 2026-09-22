@@ -7,6 +7,6 @@ struct MeguriApp: App {
         WindowGroup {
             CollectionView()
         }
-        .modelContainer(for: Entry.self)
+        .modelContainer(for: [Entry.self, Trip.self])
     }
 }

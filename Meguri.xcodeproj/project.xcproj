@@ -59,6 +59,7 @@
           "children": [
             { "path": "Entry.swift", "target-membership": [ "Meguri/compile-sources" ] },
             { "path": "Insight.swift", "target-membership": [ "Meguri/compile-sources" ] },
+            { "path": "Trip.swift", "target-membership": [ "Meguri/compile-sources" ] },
           ],
         }, {
           "kind": "group",
