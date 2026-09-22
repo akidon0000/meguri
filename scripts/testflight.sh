@@ -27,7 +27,8 @@ if [[ -z "$APP_ID" ]]; then
   exit 1
 fi
 
-PROJECT=$(ls *.xcodeproj 2>/dev/null | head -1)
+PROJECT=$(ls -d *.xcodeproj 2>/dev/null | head -1)
+PROJECT="${PROJECT%/}"
 if [[ -z "$PROJECT" ]]; then
   echo "error: no .xcodeproj found in $(pwd)" >&2
   exit 1
