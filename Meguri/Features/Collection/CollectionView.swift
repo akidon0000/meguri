@@ -24,6 +24,7 @@ struct CollectionView: View {
                     grid
                 }
             }
+            .background(Color.meguriBackground)
             .navigationTitle("Megumemo")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
