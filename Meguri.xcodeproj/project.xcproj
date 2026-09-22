@@ -57,6 +57,7 @@
               "children": [
                 { "path": "TripNaming.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "UnassignedClustering.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "PlaceGrouping.swift", "target-membership": [ "Meguri/compile-sources" ] },
               ],
             },
           ],
@@ -111,6 +112,7 @@
         { "path": "HexColorTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "CategoryDisplayTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "UnassignedClusteringTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "PlaceGroupingTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
       ],
     }, {
       "kind": "group",
