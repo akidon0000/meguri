@@ -1,0 +1,102 @@
+# asc（App Store Connect CLI）で TestFlight アップロードと審査提出まで行う。
+# 手順の正本: docs/handbook/release.md（このリポジトリ）・hq の docs/handbook/ios-release.md、経緯: ADR-0007
+#
+# scripts/ExportOptions.plist が signingStyle: manual（プロファイル名 IOS_APP_STORE-20260922 を指定）
+# のため、[ios-project-template](https://github.com/akidon0000/ios-project-template) 汎用版と違い
+# ビルド前にそのプロファイルを取得してインストールするステップが要る（docs/handbook/release.md の
+# 「1. 署名の準備」で手動で行った手順の CI 版）。
+#
+# 事前に以下の Secrets が要る:
+#   ASC_KEY_ID, ASC_ISSUER_ID, ASC_PRIVATE_KEY_B64, ASC_KEY_TYPE（Individual キーのみ、Team キーなら空でよい）
+#     asc 自身の認証と、xcodebuild の自動署名（-authenticationKey*）の両方に使う
+#   IOS_DIST_CERT_P12_BASE64, IOS_DIST_CERT_PASSWORD
+#     Apple Distribution 証明書の秘密鍵。ASC API キーだけではプロビジョニングプロファイルは
+#     自動更新できても証明書の秘密鍵までは複製されないため別途要る
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_id:
+        description: "App Store Connect の App ID（数値。既定 6814714502）"
+        required: true
+        default: "6814714502"
+      group:
+        description: "TestFlight 配布先グループ名（省略時はアップロードのみ）"
+        required: false
+      submit:
+        description: "TestFlight アップロード後、審査提出まで行う"
+        type: boolean
+        default: false
+
+defaults:
+  run:
+    shell: bash -euo pipefail {0}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: macos-latest
+    env:
+      ASC_BYPASS_KEYCHAIN: "1"
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_PRIVATE_KEY_B64: ${{ secrets.ASC_PRIVATE_KEY_B64 }}
+      ASC_KEY_TYPE: ${{ secrets.ASC_KEY_TYPE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: rudrankriyam/setup-asc@v1
+
+      - name: ASC API キーをファイルに書き出す
+        # asc 自身の認証は環境変数で足りるが、xcodebuild の自動署名
+        # （-authenticationKeyPath）には鍵の実ファイルが要る
+        run: |
+          mkdir -p "$HOME/.appstoreconnect/private_keys"
+          KEY_PATH="$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          echo "${ASC_PRIVATE_KEY_B64}" | base64 --decode > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+          echo "ASC_KEY_PATH=$KEY_PATH" >> "$GITHUB_ENV"
+
+      - name: Apple Distribution 証明書をキーチェーンにインポート
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.IOS_DIST_CERT_P12_BASE64 }}
+          p12-password: ${{ secrets.IOS_DIST_CERT_PASSWORD }}
+
+      - name: 配布用プロビジョニングプロファイルを取得・インストール
+        # ExportOptions.plist が manual 固定でプロファイル名を直接参照しているため、
+        # export 実行前にそのプロファイルをこのランナーへ実体として置く必要がある
+        run: |
+          asc signing fetch --bundle-id com.akidon0000.meguri --profile-type IOS_APP_STORE \
+            --create-missing --output ./signing
+          PROFILE=$(ls signing/IOS_APP_STORE-*.mobileprovision | head -1)
+          asc profiles local install --path "$PROFILE" --force
+
+      - name: TestFlight へアップロード
+        run: |
+          AUTH_FLAGS=(
+            --archive-xcodebuild-flag=-authenticationKeyPath --archive-xcodebuild-flag="$ASC_KEY_PATH"
+            --archive-xcodebuild-flag=-authenticationKeyID --archive-xcodebuild-flag="$ASC_KEY_ID"
+            --archive-xcodebuild-flag=-authenticationKeyIssuerID --archive-xcodebuild-flag="$ASC_ISSUER_ID"
+          )
+          if [[ -n "${{ inputs.group }}" ]]; then
+            scripts/testflight.sh "${{ inputs.app_id }}" --group "${{ inputs.group }}" --notify "${AUTH_FLAGS[@]}"
+          else
+            scripts/testflight.sh "${{ inputs.app_id }}" --upload-only "${AUTH_FLAGS[@]}"
+          fi
+
+      - name: 審査提出
+        if: ${{ inputs.submit }}
+        run: |
+          PROJECT=$(ls -d *.xcodeproj | head -1); PROJECT="${PROJECT%/}"
+          SCHEME="${PROJECT%.xcodeproj}"
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$SCHEME/Info.plist")
+          asc publish appstore \
+            --app "${{ inputs.app_id }}" \
+            --ipa "build/$SCHEME.ipa" \
+            --version "$VERSION" \
+            --submit --confirm

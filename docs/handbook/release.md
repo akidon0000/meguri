@@ -81,3 +81,12 @@ asc 側で自動採番される。
 内部テスター用に `Internal` グループを作成し `a@art.jp` を追加済み（TestFlightアプリで実機確認可能）。
 **審査提出はまだ行っていない** — Foundation Models の説明品質を実機で確認してから、
 というのがこのセッションの判断（シミュレータでは Vision/Foundation Models が動かないため未検証）。
+
+### 3. GitHub Actions から実行する（未検証）
+
+`.github/workflows/release.yml` に、上記のローカル手順を CI から実行できる `workflow_dispatch`
+ワークフローを追加済み（入力は `app_id` / `group` / `submit`）。手順1（署名の準備）で作った
+`IOS_APP_STORE-20260922` プロファイルを毎回 `asc signing fetch` + `asc profiles local install` で
+このランナーに取得・インストールしてから `scripts/testflight.sh` を呼ぶ。Secrets の作り方は
+[hq の handbook/ios-release.md](https://github.com/akidon0000/hq/blob/main/docs/handbook/ios-release.md#github-actions-から配信する)
+参照。**Secrets 未設定のため実行未確認** — 設定後に `submit` を `false` にした状態で一度動作確認すること。
