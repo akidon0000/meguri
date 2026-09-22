@@ -61,6 +61,7 @@
                 { "path": "UnassignedClustering.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "PlaceGrouping.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "CategoryGrouping.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "EntryGroupSection.swift", "target-membership": [ "Meguri/compile-sources" ] },
               ],
             },
           ],

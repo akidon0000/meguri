@@ -71,6 +71,16 @@
         }
       }
     },
+    "Cancel": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キャンセル"
+          }
+        }
+      }
+    },
     "Choose from Library": {
       "localizations": {
         "ja": {
@@ -240,6 +250,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "絵画や建物、景色にカメラを向けてください。何なのかを説明して、ここに記録していきます。"
+          }
+        }
+      }
+    },
+    "Rename trip": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅の名前を変更"
           }
         }
       }
