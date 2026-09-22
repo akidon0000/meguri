@@ -63,6 +63,7 @@
                 { "path": "CategoryGrouping.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "EntryGroupSection.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "EntryMapView.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "CompendiumView.swift", "target-membership": [ "Meguri/compile-sources" ] },
               ],
             },
           ],

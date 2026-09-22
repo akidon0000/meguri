@@ -81,6 +81,16 @@
         }
       }
     },
+    "Categories": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "種別"
+          }
+        }
+      }
+    },
     "Choose from Library": {
       "localizations": {
         "ja": {
@@ -97,6 +107,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "閉じる"
+          }
+        }
+      }
+    },
+    "Compendium": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "図鑑"
           }
         }
       }
@@ -201,6 +221,16 @@
         }
       }
     },
+    "Map": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "地図"
+          }
+        }
+      }
+    },
     "Meguri": {
       "shouldTranslate": false
     },
@@ -244,6 +274,16 @@
         }
       }
     },
+    "Nothing collected yet": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まだ何も集まっていません"
+          }
+        }
+      }
+    },
     "Other": {
       "localizations": {
         "ja": {
@@ -260,6 +300,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "他の旅"
+          }
+        }
+      }
+    },
+    "Places": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "場所"
           }
         }
       }
@@ -380,6 +430,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "リクエストが混み合っています。少し待ってからもう一度お試しください。"
+          }
+        }
+      }
+    },
+    "Trips": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅"
           }
         }
       }
