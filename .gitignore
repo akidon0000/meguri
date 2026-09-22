@@ -9,6 +9,9 @@ build/
 ## asc signing fetch output (certificates + provisioning profiles)
 signing/
 
+## superpowers visual brainstorming companion mockups
+.superpowers/
+
 ## Generated file
 R.generated.swift
 
