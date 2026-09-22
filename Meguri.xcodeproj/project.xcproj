@@ -45,6 +45,12 @@
               "children": [
                 { "path": "EntryDetailView.swift", "target-membership": [ "Meguri/compile-sources" ] },
               ],
+            }, {
+              "kind": "group",
+              "path": "Shared",
+              "children": [
+                { "path": "CategoryBadge.swift", "target-membership": [ "Meguri/compile-sources" ] },
+              ],
             },
           ],
         }, {
@@ -95,6 +101,7 @@
         { "path": "PromptBuilderTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "TaskTimeoutTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "HexColorTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "CategoryDisplayTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
       ],
     }, {
       "kind": "group",
