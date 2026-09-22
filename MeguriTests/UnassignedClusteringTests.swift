@@ -83,6 +83,22 @@ import Testing
         #expect(clusters[0].name?.contains("浅草寺") == true)
     }
 
+    // NOTE: UnassignedClustering.makeClusters always sorts entries by createdAt before
+    // building groups, so a test that only swaps input order at the makeClusters level
+    // cannot distinguish "chronological first-appearance" from "array first-appearance" --
+    // the group TripNaming.suggestedName receives is already sorted by the time it gets
+    // there. This test instead calls TripNaming.suggestedName directly with an
+    // out-of-chronological-order array, which is the actual regression surface: a caller
+    // (such as the later "suggest a name for a new trip" modal) may not pre-sort its input.
+    @Test func suggestedNameBreaksTiesByChronologicalOrderRegardlessOfArrayOrder() {
+        let entries = [
+            makeEntry(daysFromReference: 0.2, place: "オランジュリー美術館"),
+            makeEntry(daysFromReference: 0, place: "浅草寺"),
+        ]
+        let name = TripNaming.suggestedName(for: entries, locale: Locale(identifier: "ja_JP"))
+        #expect(name.contains("浅草寺") == true)
+    }
+
     @Test func generatesEnglishNameForNonJapaneseLocale() {
         let entries = [
             makeEntry(daysFromReference: 0, place: "Louvre"),

@@ -5,7 +5,7 @@ enum TripNaming {
         let sorted = entries.sorted { $0.createdAt < $1.createdAt }
         guard let first = sorted.first else { return "" }
         let month = monthFormatter(for: locale).string(from: first.createdAt)
-        guard let place = representativePlace(in: entries) else {
+        guard let place = representativePlace(in: sorted) else {
             return isJapanese(locale) ? "\(month)の旅" : "\(month) Trip"
         }
         return isJapanese(locale) ? "\(month)の\(place)旅行" : "\(place) Trip, \(month)"
