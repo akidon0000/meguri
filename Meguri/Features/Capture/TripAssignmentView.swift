@@ -40,8 +40,8 @@ struct TripAssignmentView: View {
                     if showsNewTripField {
                         TextField(String(localized: "New trip name"), text: $newTripName)
                         Button(String(localized: "Create")) {
-                            let trip = Trip(
-                                name: newTripName.isEmpty ? suggestedNewTripName : newTripName)
+                            let trimmed = newTripName.trimmingCharacters(in: .whitespacesAndNewlines)
+                            let trip = Trip(name: trimmed.isEmpty ? suggestedNewTripName : trimmed)
                             modelContext.insert(trip)
                             assign(to: trip)
                         }
@@ -70,8 +70,7 @@ struct TripAssignmentView: View {
     }
 
     private var suggestedNewTripName: String {
-        if case .newTrip(let name) = suggestion { return name }
-        return ""
+        TripNaming.suggestedName(for: [entry], locale: .current)
     }
 
     private var suggestionLabel: String {
