@@ -25,7 +25,7 @@ struct EntryMapView: View {
                     ) {
                         NavigationLink(value: entry) {
                             Circle()
-                                .fill(Color.meguriTerracotta)
+                                .fill(Color.meguriAccent)
                                 .frame(width: 14, height: 14)
                                 .overlay(Circle().stroke(.white, lineWidth: 2))
                         }

@@ -54,7 +54,7 @@ struct EntryDetailView: View {
                     .resizable()
                     .scaledToFit()
             } else {
-                Color.secondary.opacity(0.2)
+                Color.meguriBorder
                     .aspectRatio(4 / 3, contentMode: .fit)
             }
         }

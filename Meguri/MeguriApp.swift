@@ -13,8 +13,7 @@ struct MeguriApp: App {
                         Label(String(localized: "Compendium"), systemImage: "books.vertical.fill")
                     }
             }
-            .tint(Color.meguriSage)
-            .preferredColorScheme(.light)
+            .tint(Color.meguriAccent)
         }
         .modelContainer(for: [Entry.self, Trip.self])
     }

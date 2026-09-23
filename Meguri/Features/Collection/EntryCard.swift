@@ -44,7 +44,7 @@ struct EntryCard: View {
                         .scaledToFill()
                         .accessibilityHidden(true)
                 } else {
-                    Color.secondary.opacity(0.2)
+                    Color.meguriBorder
                 }
             }
             .clipped()
