@@ -1189,6 +1189,8 @@ xcrun xcodeproj group add-file TripNaming.swift --group /Meguri/Features/Compend
 xcrun xcodeproj group include TripNaming.swift --group /Meguri/Features/Compendium --target Meguri --phase 1
 xcrun xcodeproj group add-file UnassignedClustering.swift --group /Meguri/Features/Compendium
 xcrun xcodeproj group include UnassignedClustering.swift --group /Meguri/Features/Compendium --target Meguri --phase 1
+xcrun xcodeproj group add-file UnassignedClusteringTests.swift --group /MeguriTests
+xcrun xcodeproj group include UnassignedClusteringTests.swift --group /MeguriTests --target MeguriTests --phase 1
 ```
 
 - [ ] **Step 4: テストが通ることを確認する**
@@ -1407,7 +1409,7 @@ import Testing
         #expect(groups.count == 2)
         #expect(groups.last?.category == nil)
         #expect(groups.last?.entries.count == 1)
-        #expect(groups.last?.displayTitle == "Unclassified")
+        #expect(groups.last?.displayTitle == String(localized: "Unclassified"))
     }
 
     @Test func omitsEmptyCategoriesFromTaxonomy() {
@@ -1595,7 +1597,8 @@ import Testing
     }
 
     @Test func ignoresTheNewEntryItselfWhenFindingTheLastUsedTrip() {
-        let newEntry = makeEntry(daysFromReference: 0)
+        let trip = Trip(name: "自己参照テスト")
+        let newEntry = makeEntry(daysFromReference: 0, trip: trip)
         let suggestion = TripDefaultSelection.suggest(
             for: newEntry, among: [newEntry], now: reference)
         guard case .newTrip = suggestion else {
@@ -1644,11 +1647,7 @@ enum TripDefaultSelection {
 }
 ```
 
-```bash
-xcrun xcodeproj group add Capture --parent /Meguri/Features
-```
-
-（`Capture`グループは既に存在するため、上のコマンドが失敗する場合は `xcrun xcodeproj group ls /Meguri/Features` で確認しそのまま次に進む）
+`Capture`グループは既存の撮影機能（`AnalyzeViewModel.swift`等）が既に入っているため、新規に作成しない。そのままファイルだけ追加する:
 
 ```bash
 xcrun xcodeproj group add-file TripDefaultSelection.swift --group /Meguri/Features/Capture
@@ -1734,8 +1733,8 @@ struct TripAssignmentView: View {
                     if showsNewTripField {
                         TextField(String(localized: "New trip name"), text: $newTripName)
                         Button(String(localized: "Create")) {
-                            let trip = Trip(
-                                name: newTripName.isEmpty ? suggestedNewTripName : newTripName)
+                            let trimmed = newTripName.trimmingCharacters(in: .whitespacesAndNewlines)
+                            let trip = Trip(name: trimmed.isEmpty ? suggestedNewTripName : trimmed)
                             modelContext.insert(trip)
                             assign(to: trip)
                         }
@@ -1764,8 +1763,7 @@ struct TripAssignmentView: View {
     }
 
     private var suggestedNewTripName: String {
-        if case .newTrip(let name) = suggestion { return name }
-        return ""
+        TripNaming.suggestedName(for: [entry], locale: .current)
     }
 
     private var suggestionLabel: String {

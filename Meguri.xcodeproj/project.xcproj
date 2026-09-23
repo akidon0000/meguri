@@ -31,6 +31,8 @@
                 { "path": "AnalyzingView.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "CameraPicker.swift", "target-membership": [ "Meguri/compile-sources" ] },
                 { "path": "PickedImage.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "TripDefaultSelection.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "TripAssignmentView.swift", "target-membership": [ "Meguri/compile-sources" ] },
               ],
             }, {
               "kind": "group",
@@ -45,6 +47,24 @@
               "children": [
                 { "path": "EntryDetailView.swift", "target-membership": [ "Meguri/compile-sources" ] },
               ],
+            }, {
+              "kind": "group",
+              "path": "Shared",
+              "children": [
+                { "path": "CategoryBadge.swift", "target-membership": [ "Meguri/compile-sources" ] },
+              ],
+            }, {
+              "kind": "group",
+              "path": "Compendium",
+              "children": [
+                { "path": "TripNaming.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "UnassignedClustering.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "PlaceGrouping.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "CategoryGrouping.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "EntryGroupSection.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "EntryMapView.swift", "target-membership": [ "Meguri/compile-sources" ] },
+                { "path": "CompendiumView.swift", "target-membership": [ "Meguri/compile-sources" ] },
+              ],
             },
           ],
         }, {
@@ -53,6 +73,7 @@
           "children": [
             { "path": "Entry.swift", "target-membership": [ "Meguri/compile-sources" ] },
             { "path": "Insight.swift", "target-membership": [ "Meguri/compile-sources" ] },
+            { "path": "Trip.swift", "target-membership": [ "Meguri/compile-sources" ] },
           ],
         }, {
           "kind": "group",
@@ -73,6 +94,12 @@
             { "path": "VisionImagePerception.swift", "target-membership": [ "Meguri/compile-sources" ] },
             { "path": "TaskTimeout.swift", "target-membership": [ "Meguri/compile-sources" ] },
           ],
+        }, {
+          "kind": "group",
+          "path": "Theme",
+          "children": [
+            { "path": "Theme.swift", "target-membership": [ "Meguri/compile-sources" ] },
+          ],
         },
       ],
     }, {
@@ -88,6 +115,12 @@
         { "path": "InsightTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "PromptBuilderTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
         { "path": "TaskTimeoutTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "HexColorTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "CategoryDisplayTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "UnassignedClusteringTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "PlaceGroupingTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "CategoryGroupingTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
+        { "path": "TripDefaultSelectionTests.swift", "target-membership": [ "MeguriTests/compile-sources" ] },
       ],
     }, {
       "kind": "group",

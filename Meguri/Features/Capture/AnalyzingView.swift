@@ -5,11 +5,13 @@ struct AnalyzingView: View {
     @State var viewModel: AnalyzeViewModel
     let onFinish: () -> Void
 
+    @State private var pendingTripEntry: Entry?
+
     var body: some View {
         NavigationStack {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.systemBackground))
+                .background(Color.meguriBackground)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
@@ -20,6 +22,20 @@ struct AnalyzingView: View {
         .task {
             viewModel.start(image)
         }
+        .onChange(of: isDone) { _, isDone in
+            guard isDone, case .done(let entry) = viewModel.phase else { return }
+            pendingTripEntry = entry
+        }
+        .sheet(item: $pendingTripEntry) { entry in
+            TripAssignmentView(entry: entry) {
+                pendingTripEntry = nil
+            }
+        }
+    }
+
+    private var isDone: Bool {
+        if case .done = viewModel.phase { return true }
+        return false
     }
 
     @ViewBuilder

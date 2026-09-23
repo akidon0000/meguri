@@ -14,6 +14,7 @@ final class Entry {
     var unavailableReason: String?
     var perceivedLabels: [String]
     var recognizedTexts: [String]
+    @Relationship(deleteRule: .nullify) var trip: Trip?
 
     init(
         imageFileName: String,

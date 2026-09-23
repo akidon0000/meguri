@@ -17,4 +17,23 @@ import Testing
         let decoded = try JSONDecoder().decode(Insight.self, from: data)
         #expect(decoded == original)
     }
+
+    @Test func decodesAllSevenCategories() throws {
+        for category in Insight.Category.allCases {
+            let insight = Insight(
+                title: "t", creator: "", era: "", summary: "s", funFacts: [], category: category)
+            let data = try JSONEncoder().encode(insight)
+            let decoded = try JSONDecoder().decode(Insight.self, from: data)
+            #expect(decoded.category == category)
+        }
+    }
+
+    @Test func fallsBackToOtherForUnrecognizedCategoryRawValue() throws {
+        let json = """
+            {"title":"t","creator":"","era":"","summary":"s","funFacts":[],"category":"landscape"}
+            """.data(using: .utf8)!
+        let decoded = try JSONDecoder().decode(Insight.self, from: json)
+        #expect(decoded.category == .other)
+        #expect(decoded.title == "t")
+    }
 }

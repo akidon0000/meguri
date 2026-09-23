@@ -5,8 +5,17 @@ import SwiftUI
 struct MeguriApp: App {
     var body: some Scene {
         WindowGroup {
-            CollectionView()
+            TabView {
+                CollectionView()
+                    .tabItem { Label(String(localized: "Home"), systemImage: "house.fill") }
+                CompendiumView()
+                    .tabItem {
+                        Label(String(localized: "Compendium"), systemImage: "books.vertical.fill")
+                    }
+            }
+            .tint(Color.meguriSage)
+            .preferredColorScheme(.light)
         }
-        .modelContainer(for: Entry.self)
+        .modelContainer(for: [Entry.self, Trip.self])
     }
 }

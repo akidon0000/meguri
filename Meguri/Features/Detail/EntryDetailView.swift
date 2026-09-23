@@ -6,6 +6,7 @@ struct EntryDetailView: View {
     @Environment(\.dependencies) private var dependencies
     @Environment(\.dismiss) private var dismiss
     @Bindable var entry: Entry
+    @Query(sort: \Trip.name) private var trips: [Trip]
 
     @State private var isRegenerating = false
     @State private var confirmsDelete = false
@@ -26,6 +27,7 @@ struct EntryDetailView: View {
         }
         .navigationTitle(entry.insight?.title ?? String(localized: "Untitled"))
         .navigationBarTitleDisplayMode(.inline)
+        .background(Color.meguriBackground)
         .toolbar {
             ToolbarItem(placement: .secondaryAction) {
                 Button(role: .destructive) {
@@ -65,17 +67,19 @@ struct EntryDetailView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(insight.title)
                 .font(.title2.weight(.bold))
+                .foregroundStyle(Color.meguriInk)
 
             let byline = [insight.creator, insight.era].filter { !$0.isEmpty }.joined(
                 separator: " · ")
             if !byline.isEmpty {
                 Text(byline)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.meguriSecondaryText)
             }
 
             Text(insight.summary)
                 .font(.body)
+                .foregroundStyle(Color.meguriInk)
 
             if !insight.funFacts.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
@@ -87,16 +91,15 @@ struct EntryDetailView: View {
                 .padding(.top, 4)
             }
 
-            Text(categoryLabel(insight.category))
-                .font(.caption.weight(.medium))
-                .padding(.horizontal, 10)
-                .padding(.vertical, 4)
-                .background(.tint.opacity(0.15), in: Capsule())
+            CategoryBadge(category: insight.category)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(
-            .background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(Color.meguriSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.meguriBorder, lineWidth: 1)
+        )
     }
 
     private var unavailableCard: some View {
@@ -123,8 +126,11 @@ struct EntryDetailView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(
-            .background.secondary, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(Color.meguriSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.meguriBorder, lineWidth: 1)
+        )
     }
 
     private var metadata: some View {
@@ -139,18 +145,31 @@ struct EntryDetailView: View {
                 )
                 .lineLimit(3)
             }
+            tripMenu
         }
         .font(.footnote)
         .foregroundStyle(.secondary)
     }
 
-    private func categoryLabel(_ category: Insight.Category) -> String {
-        switch category {
-        case .artwork: String(localized: "Artwork")
-        case .landscape: String(localized: "Landscape")
-        case .architecture: String(localized: "Architecture")
-        case .other: String(localized: "Other")
+    private var tripMenu: some View {
+        Menu {
+            Button(String(localized: "No trip")) { assignTrip(nil) }
+            ForEach(trips) { trip in
+                Button(trip.name) { assignTrip(trip) }
+            }
+            Button(String(localized: "Create a new trip")) {
+                let trip = Trip(name: TripNaming.suggestedName(for: [entry], locale: .current))
+                modelContext.insert(trip)
+                assignTrip(trip)
+            }
+        } label: {
+            Label(entry.trip?.name ?? String(localized: "No trip"), systemImage: "case.fill")
         }
+    }
+
+    private func assignTrip(_ trip: Trip?) {
+        entry.trip = trip
+        try? modelContext.save()
     }
 
     private func regenerate() async {
