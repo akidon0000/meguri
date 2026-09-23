@@ -6,7 +6,6 @@ struct EntryCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             thumbnail
-                .aspectRatio(1, contentMode: .fit)
                 .frame(maxWidth: .infinity)
                 .padding(4)
                 .background(Color.meguriSurface)
@@ -35,16 +34,20 @@ struct EntryCard: View {
         .accessibilityElement(children: .combine)
     }
 
-    @ViewBuilder
     private var thumbnail: some View {
-        if let image = UIImage(data: entry.thumbnailData) {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFill()
-                .accessibilityHidden(true)
-        } else {
-            Color.secondary.opacity(0.2)
-        }
+        Color.clear
+            .aspectRatio(1, contentMode: .fit)
+            .overlay {
+                if let image = UIImage(data: entry.thumbnailData) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .accessibilityHidden(true)
+                } else {
+                    Color.secondary.opacity(0.2)
+                }
+            }
+            .clipped()
     }
 }
 
