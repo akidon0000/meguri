@@ -82,6 +82,26 @@ asc 側で自動採番される。
 **審査提出はまだ行っていない** — Foundation Models の説明品質を実機で確認してから、
 というのがこのセッションの判断（シミュレータでは Vision/Foundation Models が動かないため未検証）。
 
+2026-09-23、`Meguri/Info.plist` の `CFBundleVersion`/`CFBundleShortVersionString` が
+ハードコードされたリテラル値（`"1"`/`"1.0"`）だったバグを発見・修正した。`xcodebuild` の
+`CURRENT_PROJECT_VERSION`/`MARKETING_VERSION` 上書きが一切反映されず、`scripts/testflight.sh`
+経由のアップロードが毎回 build 1（既に使用済み）として送信され `The bundle version must be
+higher than the previously uploaded version` で失敗し続けていた。`$(CURRENT_PROJECT_VERSION)`/
+`$(MARKETING_VERSION)` の変数参照に修正し、プロジェクトの build settings にもデフォルト値
+（`CURRENT_PROJECT_VERSION: 1`, `MARKETING_VERSION: 1.0`）を設定済み。
+
+この過程で `asc publish testflight`（`scripts/testflight.sh` が内部で使う local-build 一括
+オーケストレーション）の「pre-release versions を検索する」内部呼び出しが Apple 側の
+一時的な 500 エラーで複数回失敗する事象にも遭遇した（`asc system-status` は正常を示していた）。
+再試行しても直らなかったため、アーカイブ・エクスポートを自分で行い（build 番号は
+`CURRENT_PROJECT_VERSION=3` を明示指定、`ExportOptions.plist` は一時的に
+`manageAppVersionAndBuildNumber: false` にしたコピーを使用）、`asc builds upload --ipa` で
+直接アップロードする経路に切り替えて回避した。Build 3（version 1.0, `processingState: VALID`）
+のアップロードまで完了。`Internal` グループは `hasAccessToAllBuilds: true`（内部テスターは
+処理済みの全ビルドに自動アクセス）のため、`asc builds add-groups` は
+`Cannot add internal group to a build`（HTTP 422）で失敗するが、これは想定内でグループへの
+明示的な追加は不要 — 内部テスターは自動的にこの新ビルドを利用できる。
+
 ### 3. GitHub Actions から実行する（未検証）
 
 `.github/workflows/release.yml` に、上記のローカル手順を CI から実行できる `workflow_dispatch`
